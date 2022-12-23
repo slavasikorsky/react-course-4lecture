@@ -22,7 +22,8 @@ npm run dev
 Commands should be run under a **bash** shell.
 
 ```bash
-npm run dev
+cd client
+npm run build
 ```
 For more predefined commands, see `package.json`, item `scripts`.
 
