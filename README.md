@@ -10,7 +10,7 @@
 ## Installation
 
 ```bash
-git clone git@github.com:maksym-terela-md/simple-mern.git
+git clone ssh://git@git.stgnew.com:2222/maksym.terela/my-app.git
 
 npm run install-all-deps
 

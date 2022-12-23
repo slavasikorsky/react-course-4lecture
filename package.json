@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "1.0.0",
-  "description": "## Technologies:",
+  "description": "My App",
   "main": "index.js",
   "scripts": {
     "client-install": "cd client && npm install",
