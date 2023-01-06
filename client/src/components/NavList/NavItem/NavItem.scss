@@ -1,0 +1,29 @@
+@import "../../../assets/css/colors";
+@import "../../../assets/css/media";
+
+.navbar__item {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 24px;
+	margin: 0 5px;
+	@media screen and (min-width: $sm) {
+		font-size: 18px;
+	}
+	@media screen and (min-width: $xl) {
+		margin: 0 21px;
+	}
+	&:hover {
+		.navbar__item-link {
+			opacity: 1;
+		}
+	}
+}
+
+.navbar__item-link {
+	color: $text;
+	opacity: 0.5;
+}
+
+.navbar__item-link--active {
+	opacity: 1;
+}

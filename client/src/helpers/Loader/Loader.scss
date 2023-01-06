@@ -1,0 +1,12 @@
+.loader {
+    margin:60px auto;
+    animation:spin 4s linear infinite;
+    max-width: 100px;
+}
+
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
+}

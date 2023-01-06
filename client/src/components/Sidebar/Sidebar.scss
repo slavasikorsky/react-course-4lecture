@@ -1,0 +1,22 @@
+@import "../../assets/css/colors";
+
+.sidebar {
+    background: $dashboard-bg;
+    border-radius: 20px;
+    padding: 37px;
+    margin: 30px 0;
+    width: 27%;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li{
+        margin: 0 0 20px;
+        color: $white;
+    }
+}

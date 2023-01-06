@@ -1,0 +1,29 @@
+@import './../../../assets/css/media';
+@import './../../../assets/css/colors';
+
+.footer-menu {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    @media screen and (min-width: $lg) {
+        width: 50%;
+    }
+
+    .footer-menu__item {
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+        @media screen and (min-width: $sm) {
+            width: 50%;
+        }
+        @media screen and (min-width: $md) {
+            width: 33.3%;
+        }
+
+        .footer-menu__item-title {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 60px;
+        }
+    }
+}

@@ -1,0 +1,124 @@
+@import '../../../assets/css/_colors.scss';
+@import '../../../assets/css/_media.scss';
+
+.grid__item {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    background: $card-bg;
+    border-radius: 20px;
+    margin-bottom: 65px;
+    overflow: hidden;
+
+    @media screen and (min-width: $lg) {
+        flex-flow: row-reverse;
+        justify-content: space-between;
+    }
+
+    .grid__item-content {
+        padding: 30px;
+        @media screen and (min-width: $xl) {
+            padding: 70px 60px;
+        }
+    }
+
+    .grid__item-title {
+        font-weight: 700;
+        font-size: 21px;
+        line-height: 32px;
+        margin: 0 0 20px;
+    }
+
+    .grid__item-text {
+        font-size: 16px;
+        line-height: 28px;
+        opacity: 0.7;
+        margin: 0 0 30px;
+    }
+
+    .grid__item-image {
+        width: 100%;
+        @media screen and (min-width: $lg) {
+            width: 50%;
+        }
+    }
+
+    .item-bottom {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-flow: column;
+        width: 100%;
+
+        @media screen and (min-width: $lg) {
+            flex-flow: nowrap;
+        }
+    }
+
+    .grid__item-stats {
+        margin: 10px 0;
+        @media screen and (min-width: $lg) {
+            margin: 0;
+        }
+    }
+
+    .grid__item-price {
+        font-family: 'Netflix Sans';
+        font-size: 12px;
+        line-height: 15px;
+        padding-left: 20px;
+        position: relative;
+        margin: 10px;
+        &:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 17px;
+            height: 17px;
+            transform: translateY(-50%);
+            background: url("./../../../assets/images/icons/price.svg") no-repeat;
+        }
+        @media screen and (min-width: $lg) {
+            margin: 0 10px 0 0;
+        }
+    }
+
+    .grid__item-rating {
+        font-family: 'Netflix Sans';
+        font-size: 12px;
+        line-height: 15px;
+        padding-left: 20px;
+        position: relative;
+        margin: 10px;
+        &:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 17px;
+            height: 17px;
+            transform: translateY(-50%);
+            background: url("./../../../assets/images/icons/rating.svg") no-repeat;
+        }
+        @media screen and (min-width: $lg) {
+            margin: 0 10px 0 0;
+        }
+    }
+
+    &.grid__item--masonry{
+        flex-flow: column;
+        .grid__item-content {
+            padding: 10px 30px
+        }
+        .grid__item-title {
+            margin: 0 0 10px;
+        }
+
+        .grid__item-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+}

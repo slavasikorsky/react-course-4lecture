@@ -1,0 +1,47 @@
+.user-data {
+    width: 100%;
+    background: #BDB2FF;
+    border-radius: 12px;
+    padding: 15px 25px;
+    display: flex;
+    flex-flow: nowrap;
+    align-items: center;
+    margin: 0 0 40px;
+}
+
+.user-avatar {
+    margin: 0 12px 0 0;
+    width: 50px;
+}
+
+.user-name {
+    display: flex;
+    flex-flow: column;
+    color: #262835;
+    .user-fullname {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .user-role {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+    }
+}
+
+.profile--page {
+    z-index: 1;
+    position: relative;
+    background: transparent;
+
+    .user-avatar {
+        width: 100px;
+    }
+
+    .user-name {
+        background: #BDB2FF;
+        border-radius: 12px;
+        padding: 8px;
+    }
+}

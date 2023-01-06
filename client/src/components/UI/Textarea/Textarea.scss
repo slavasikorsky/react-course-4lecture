@@ -1,0 +1,21 @@
+Textarea {
+    font-family: "Mulish", sans-serif;
+    width: 100%;
+    background: rgba(#303033,0.7);
+    min-height: 270px;
+    border-radius: 10px;
+    padding: 40px;
+    font-size: 18px;
+    line-height: 23px;
+    border: none;
+    color: #fff;
+    &::placeholder {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
+    &.purple {
+        background: #BDB2FF;
+        color: #000;
+    }
+}

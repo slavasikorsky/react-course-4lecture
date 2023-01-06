@@ -1,0 +1,47 @@
+.task {
+    order: 0;
+    margin: 0 0 20px;
+    background: #fff;
+    border: 1px solid #FFFBE8;
+    border-radius: 8px;
+    height: 64px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: -0.5px;
+    color: rgba(24, 24, 25, 0.9);
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+    &.pinned {
+        order: -99;
+        background: #FFFBE8;
+    }
+
+    button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        width: 35px;
+        height: 35px;
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .panel {
+        position: absolute;
+        right: 0;
+    }
+
+    .edit-input {
+        border-radius: 10px;
+        height: 40px;
+        padding: 10px;
+    }
+}

@@ -1,0 +1,12 @@
+@import '../../assets/css/media';
+
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (min-width: $xl) {
+        padding: 0 15px;        
+    }
+}
