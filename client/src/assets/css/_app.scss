@@ -1,14 +1,14 @@
-@import './_colors.scss'; 
+@import "./_colors.scss";
 
 body {
-  background-color: $dark;
-  color: $white;
+	background-color: $dark;
+	color: $white;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }

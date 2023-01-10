@@ -1,13 +1,11 @@
-import React from 'react';
+import "./DashboardContent.scss";
 
-import './DashboardContent.scss';
-
-const DashboardContent = ({children, ...rest}) => {
-    return (
-        <div className="dashboard-content" {...rest}>
-            {children}
-        </div>
-    );
-};
+function DashboardContent({ children, ...rest }) {
+	return (
+		<div className="dashboard-content" {...rest}>
+			{children}
+		</div>
+	);
+}
 
 export default DashboardContent;

@@ -1,16 +1,16 @@
 .navbar {
-    display: flex;
-    list-style: none;
-    padding: 0;
+	display: flex;
+	list-style: none;
+	padding: 0;
 
-    &.navbar--horizontal {
-        flex-flow: nowrap;
-    }
+	&.navbar--horizontal {
+		flex-flow: nowrap;
+	}
 
-    &.navbar--vertical {
-        flex-flow: column;
-        .navbar__item {
-            margin: 6px 0;
-        }
-    }
+	&.navbar--vertical {
+		flex-flow: column;
+		.navbar__item {
+			margin: 6px 0;
+		}
+	}
 }

@@ -1,44 +1,44 @@
-@import './../../assets/css/colors';
+@import "./../../assets/css/colors";
 
 .button {
-    display: inline-flex;
-    align-items: center;
-    background-color:$button-bg;
-    border-radius: 40px;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 28px;
-    min-width: 126px;
-    min-height: 32px;
-    padding:2px 15px;
-    color: $white;
-    cursor: pointer;
-    transition: all .3s linear;
-    &:hover {
-        background-color: $black;
-    }
+	display: inline-flex;
+	align-items: center;
+	background-color: $button-bg;
+	border-radius: 40px;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 28px;
+	min-width: 126px;
+	min-height: 32px;
+	padding: 2px 15px;
+	color: $white;
+	cursor: pointer;
+	transition: all 0.3s linear;
+	&:hover {
+		background-color: $black;
+	}
 
-    &.button--large {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 20px;
-        min-width: 288px;
-        justify-content: center;
-        min-height: 42px;
-        margin: 40px auto;
-    }
+	&.button--large {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 20px;
+		min-width: 288px;
+		justify-content: center;
+		min-height: 42px;
+		margin: 40px auto;
+	}
 
-    &.button--with-arrow {
-        position: relative;
-        &:after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: 24px;
-            transform: translateY(-50%);
-            background: url("../../assets/images/icons/arrow.svg") no-repeat;
-            width: 12px;
-            height: 9px;
-        }
-    }
+	&.button--with-arrow {
+		position: relative;
+		&:after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			right: 24px;
+			transform: translateY(-50%);
+			background: url("../../assets/images/icons/arrow.svg") no-repeat;
+			width: 12px;
+			height: 9px;
+		}
+	}
 }

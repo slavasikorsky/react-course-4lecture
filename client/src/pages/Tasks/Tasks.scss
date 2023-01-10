@@ -1,29 +1,29 @@
 .tasks-list {
-    list-style: none;
-    margin: 0;
-    display: flex;
-    flex-flow: column;
-    padding: 0;
+	list-style: none;
+	margin: 0;
+	display: flex;
+	flex-flow: column;
+	padding: 0;
 }
 
 .task-form {
-    input {
-        background: #FFFFFF;
-        border: 1px solid #E6E7E9;
-        border-radius: 8px;
-        height: 60px;
-        padding: 20px;
-        margin-right: 20px;
-        min-width: 300px
-    }
-    button {
-        background: #BDB2FF;
-        border: 1px solid #BDB2FF;
-        border-radius: 8px;
-        height: 60px;
-        padding: 20px;
-        text-align: center;
-        text-transform: uppercase;
-        cursor: pointer;
-    }
+	input {
+		background: #ffffff;
+		border: 1px solid #e6e7e9;
+		border-radius: 8px;
+		height: 60px;
+		padding: 20px;
+		margin-right: 20px;
+		min-width: 300px;
+	}
+	button {
+		background: #bdb2ff;
+		border: 1px solid #bdb2ff;
+		border-radius: 8px;
+		height: 60px;
+		padding: 20px;
+		text-align: center;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
 }

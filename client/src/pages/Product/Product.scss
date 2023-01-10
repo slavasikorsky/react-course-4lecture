@@ -1,25 +1,25 @@
-@import '../../assets/css/colors';
+@import "../../assets/css/colors";
 
 .post-content {
-    overflow: hidden;
-    max-width: 1300px;
-    margin: 160px 0;
+	overflow: hidden;
+	max-width: 1300px;
+	margin: 160px 0;
 }
 
 .post-content__images {
-    display: flex;
-    width: 100%;
-    gap: 15px;
-    flex-flow: nowrap;
-    overflow-x: scroll;
-    img {
-        width: auto;
-    }
+	display: flex;
+	width: 100%;
+	gap: 15px;
+	flex-flow: nowrap;
+	overflow-x: scroll;
+	img {
+		width: auto;
+	}
 }
 
 .post-info {
-    background-color: rgba($white, 0.1);
-    border-radius: 40px;
-    padding:25px;
-    margin: 15px 0;
+	background-color: rgba($white, 0.1);
+	border-radius: 40px;
+	padding: 25px;
+	margin: 15px 0;
 }

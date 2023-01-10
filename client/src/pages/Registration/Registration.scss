@@ -1,33 +1,33 @@
 .registartion-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 700px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 700px;
 }
 
 .registartion-title {
-    text-align: center;
+	text-align: center;
 }
 
 .registration-form {
-    background: #191A1D;
-    padding: 40px;
-    display: flex;
-    flex-flow: column;
-    min-width: 600px;
-    form {
-        margin: 20px 0;
-    }
-    input {
-        width: 100%;
-    }
-    .col {
-        display: flex;
-        flex-flow: nowrap;
-        justify-content: space-between;
-        margin: 0 0 15px;
-        input {
-            width: 46%;
-        }
-    }
+	background: #191a1d;
+	padding: 40px;
+	display: flex;
+	flex-flow: column;
+	min-width: 600px;
+	form {
+		margin: 20px 0;
+	}
+	input {
+		width: 100%;
+	}
+	.col {
+		display: flex;
+		flex-flow: nowrap;
+		justify-content: space-between;
+		margin: 0 0 15px;
+		input {
+			width: 46%;
+		}
+	}
 }

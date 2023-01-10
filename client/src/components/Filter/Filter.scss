@@ -1,10 +1,10 @@
-@import '../../assets/css/_media.scss';
+@import "../../assets/css/_media.scss";
 
 .filter-wrapper {
-    display: flex;
-    flex-flow: row-wrap;
-    padding: 20px 0;
-    @media screen and (min-width: $xl) {
-        padding: 50px 0;
-    }
+	display: flex;
+	flex-flow: row-wrap;
+	padding: 20px 0;
+	@media screen and (min-width: $xl) {
+		padding: 50px 0;
+	}
 }

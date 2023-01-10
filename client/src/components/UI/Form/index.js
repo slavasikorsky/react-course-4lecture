@@ -1,13 +1,11 @@
-import React from 'react';
+import "./Form.scss";
 
-import './Form.scss'
-
-const Form = ({children, ...rest}) => {
-    return (
-        <form className="form" {...rest}>
-            {children}
-        </form>
-    );
-};
+function Form({ children, ...rest }) {
+	return (
+		<form className="form" {...rest}>
+			{children}
+		</form>
+	);
+}
 
 export default Form;

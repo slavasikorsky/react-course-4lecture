@@ -1,49 +1,65 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
-import './Post.scss';
+import "./Post.scss";
 
-const Post = (props) => {
-    const [toggleMenu, setToggleMenu] = useState(false);
+function Post(props) {
+	const [toggleMenu, setToggleMenu] = useState(false);
+	const { id, title, status, author, date, onEdit, onDelete } = props;
 
-    const editHandler = (e, id) => {
-        e.stopPropagation();
-        setToggleMenu(false);
-        props.onEdit(id);
-    }
+	const editHandler = (e, index) => {
+		e.stopPropagation();
+		setToggleMenu(false);
+		onEdit(index);
+	};
 
-    const deleteHandler = (e, id) => {
-        e.preventDefault();
-        setToggleMenu(false);
-        props.onDelete(id);
-    }
+	const deleteHandler = (e, index) => {
+		e.preventDefault();
+		setToggleMenu(false);
+		onDelete(index);
+	};
 
-    const toggleHandler = (e) => {
-        e.preventDefault();
-        setToggleMenu(!toggleMenu);
-    }
+	const toggleHandler = (e) => {
+		e.preventDefault();
+		setToggleMenu(!toggleMenu);
+	};
 
-    return (
-        <li className="post">
-            <span className="post-field">{props.title}</span> 
-            <span className={`post-field ${props.status}`}><span>{props.status}</span></span>
-            <span className="post-field data"><span>{props.date}</span></span>
-            <span className="post-field">{props.author}</span>
-            <button 
-                className="toggle-menu"
-                onClick={(e)=>toggleHandler(e)}
-            >
-                ...
-            </button>
-            {toggleMenu && 
-                <div className="menu">
-                    <div className="menu-content">
-                        <button onClick={(e)=>editHandler(e, props.id)}>Edit</button>
-                        <button onClick={(e)=>deleteHandler(e, props.id)}>Delete</button>
-                    </div>
-                </div>
-            }
-        </li>
-    );
-};
+	return (
+		<li className="post">
+			<span className="post-field">{title}</span>
+			<span className={`post-field ${status}`}>
+				<span>{status}</span>
+			</span>
+			<span className="post-field data">
+				<span>{date}</span>
+			</span>
+			<span className="post-field">{author}</span>
+			<button
+				type="button"
+				className="toggle-menu"
+				onClick={(e) => toggleHandler(e)}
+			>
+				...
+			</button>
+			{toggleMenu && (
+				<div className="menu">
+					<div className="menu-content">
+						<button
+							type="button"
+							onClick={(e) => editHandler(e, id)}
+						>
+							Edit
+						</button>
+						<button
+							type="button"
+							onClick={(e) => deleteHandler(e, id)}
+						>
+							Delete
+						</button>
+					</div>
+				</div>
+			)}
+		</li>
+	);
+}
 
 export default Post;

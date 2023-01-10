@@ -1,37 +1,36 @@
-@import '../../assets/css/_colors.scss';
-@import '../../assets/css/_media.scss';
+@import "../../assets/css/_colors.scss";
+@import "../../assets/css/_media.scss";
 
 .search-wrapper {
+	padding: 20px 0;
+	@media screen and (min-width: $xl) {
+		padding: 50px 0;
+	}
 
-    padding: 20px 0;
-    @media screen and (min-width: $xl) {
-        padding: 50px 0;
-    }
+	.search-input {
+		min-height: 56px;
+		border-radius: 10px;
+		padding: 5px 45px;
+		border: none;
+		box-shadow: none;
+		outline: none;
+		color: $text;
+		font-size: 16px;
+		position: relative;
+		background: $input-bg;
+		background-image: url("../../assets/images/icons/search.svg");
+		background-repeat: no-repeat;
+		background-size: 17px;
+		background-position: 17px 50%;
 
-    .search-input {
-        min-height: 56px;
-        border-radius: 10px;
-        padding:5px 45px;
-        border: none;
-        box-shadow: none;
-        outline: none;
-        color: $text;
-        font-size: 16px;
-        position: relative;
-        background: $input-bg;
-        background-image: url("../../assets/images/icons/search.svg");
-        background-repeat: no-repeat;
-        background-size: 17px;
-        background-position: 17px 50%;
+		@media screen and (min-width: $xl) {
+			min-width: 571px;
+		}
 
-        @media screen and (min-width: $xl) {
-            min-width: 571px;  
-        }
-
-        &::placeholder {
-            line-height: 20px;
-            color: inherit;
-            opacity: 0.6;
-        }
-    }
+		&::placeholder {
+			line-height: 20px;
+			color: inherit;
+			opacity: 0.6;
+		}
+	}
 }

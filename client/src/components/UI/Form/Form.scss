@@ -1,43 +1,43 @@
 .form {
-    margin: 40px auto;
-    display: block;
+	margin: 40px auto;
+	display: block;
 
-    .row {
-        display: flex;
-        justify-content: space-between;
-        margin: 0 0 40px;
-        .select,
-        input {
-            width: 44%;
-        }
-    }
+	.row {
+		display: flex;
+		justify-content: space-between;
+		margin: 0 0 40px;
+		.select,
+		input {
+			width: 44%;
+		}
+	}
 
-    input {
-        background: rgba(48, 48, 51, 0.7);
-        border-radius: 10px;
-        min-height: 50px;
-        padding: 6px 20px;
-        color: #fff;
-        box-shadow: none;
-        border: none;
-        margin: 0 0 12px;
-        &::placeholder {
-            color: inherit;
-        }
-    }
+	input {
+		background: rgba(48, 48, 51, 0.7);
+		border-radius: 10px;
+		min-height: 50px;
+		padding: 6px 20px;
+		color: #fff;
+		box-shadow: none;
+		border: none;
+		margin: 0 0 12px;
+		&::placeholder {
+			color: inherit;
+		}
+	}
 
-    button {
-        cursor: pointer;
-        background: #303033;
-        border-radius: 40px;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 28px;
-        margin: 40px auto;
-        color: #fff;
-        display: block;
-        height: 51px;
-        min-width: 230px;
-        border: none;
-    }
+	button {
+		cursor: pointer;
+		background: #303033;
+		border-radius: 40px;
+		font-weight: 600;
+		font-size: 18px;
+		line-height: 28px;
+		margin: 40px auto;
+		color: #fff;
+		display: block;
+		height: 51px;
+		min-width: 230px;
+		border: none;
+	}
 }
