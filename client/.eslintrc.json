@@ -19,7 +19,7 @@
 		"sourceType": "module"
 	},
 	"plugins": ["react"],
-	"ignorePatterns": ["**/UI/**/*.js", "**/auth.js"],
+	"ignorePatterns": ["**/UI/**/*.js"],
 	"rules": {
 		"object-shorthand": 0,
 		"spaceInEmptyObject": [0, "newer"],

@@ -26,7 +26,7 @@ function Sidebar() {
 				{sidebarLinks &&
 					sidebarLinks.map((item) => (
 						<SidebarLink
-							key={item.id}
+							key={item.link}
 							link={item.link}
 							active={item.active}
 						>

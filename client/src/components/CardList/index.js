@@ -1,6 +1,5 @@
 import Masonry from "react-masonry-css";
 import CardItem from "./CardItem";
-import Loader from "../../helpers/Loader";
 
 import "./CardList.scss";
 
@@ -28,7 +27,7 @@ function CardList(props) {
 					rating={first.rating}
 				/>
 			) : (
-				<Loader />
+				false
 			)}
 
 			<Masonry
@@ -37,26 +36,24 @@ function CardList(props) {
 				columnClassName="grid__masonry__column"
 			>
 				{/* Show other cards in the masonry layout starting by 1 */}
-				{data ? (
-					data.map((item, index) =>
-						index > 0 ? (
-							<CardItem
-								clName="grid__item grid__item--masonry"
-								key={item.id}
-								id={item.id}
-								title={item.title}
-								imgSrc={item.thumbnail}
-								text={item.description}
-								price={item.price}
-								rating={item.rating}
-							/>
-						) : (
-							false
-						)
-					)
-				) : (
-					<Loader />
-				)}
+				{data
+					? data.map((item, index) =>
+							index > 0 ? (
+								<CardItem
+									clName="grid__item grid__item--masonry"
+									key={item.id}
+									id={item.id}
+									title={item.title}
+									imgSrc={item.thumbnail}
+									text={item.description}
+									price={item.price}
+									rating={item.rating}
+								/>
+							) : (
+								false
+							)
+					  )
+					: false}
 			</Masonry>
 		</div>
 	);

@@ -19,12 +19,10 @@ function Registration() {
 	const context = useContext(AuthContext);
 
 	useEffect(() => {
-		if (data && !data.message) {
-			context.login(data);
-		} else {
-			notify.error(data.message, "login-error");
-		}
-	}, [data]);
+		return data && !data.message
+			? context.login(data)
+			: notify.error(data.message, "login-error");
+	}, [data, context]);
 
 	const handlerSubmit = async (e) => {
 		e.preventDefault();
@@ -45,9 +43,8 @@ function Registration() {
 				})
 			);
 		} else {
-			console.log(error);
 			notify.error(
-				"Please fill all required fields",
+				"Please fill all required fields" || error,
 				"registration-error"
 			);
 		}

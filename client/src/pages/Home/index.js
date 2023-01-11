@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 
 import Container from "../../components/Container";
-import CardList from "../../components/CardList";
 import Filter from "../../components/Filter";
 import Search from "../../components/Search";
 import Hero from "../../components/Hero";
 import Wrapper from "../../components/Wrapper";
 import Button from "../../components/Button";
+import Loader from "../../helpers/Loader";
 
 import heroImage from "../../assets/images/hero.png";
+
+const CardList = React.lazy(() => import("../../components/CardList"));
 
 function Home() {
 	const API_URL = "https://dummyjson.com/products";
 	const postPerPage = 10;
 
 	const [posts, setPosts] = useState([]);
-	// const [isComplited, seIsComplited] = useState(false);
 	const [loadMore, setLoadMore] = useState(true);
 	const [skip, setSkip] = useState(0);
 
@@ -83,7 +84,9 @@ function Home() {
 						<Search postsHandler={postSearch} />
 					</Wrapper>
 					<Wrapper>
-						<CardList data={posts} />
+						<Suspense fallback={<Loader />}>
+							<CardList data={posts} />
+						</Suspense>
 						{loadMore ? (
 							<Button
 								onClick={loadPosts}

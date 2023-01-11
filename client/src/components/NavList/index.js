@@ -8,7 +8,7 @@ function NavList(props) {
 	return (
 		<ul className={`navbar navbar--${direction}`}>
 			{data.map((item) => (
-				<NavItem key={item.id} link={item.link} active={item.active}>
+				<NavItem key={item.link} link={item.link} active={item.active}>
 					{item.title}
 				</NavItem>
 			))}
