@@ -2,36 +2,37 @@ import { useReducer, createContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-const initialState = {
+const LOGIN = "LOGIN";
+const LOGOUT = "LOGOUT";
+const JWT_TOKEN = "jwtToken";
+const USER = "user";
+const INITIAL_STATE = {
 	user: null,
 };
 
-if (localStorage.getItem("jwtDecode")) {
-	const decodeToken = jwtDecode(localStorage.getItem("jwtDecode"));
-	const username = localStorage.getItem("user");
-
+if (localStorage.getItem(JWT_TOKEN)) {
+	const decodeToken = jwtDecode(localStorage.getItem(JWT_TOKEN));
+	const username = localStorage.getItem(USER);
 	if (decodeToken.exp * 1000 < Date.now()) {
-		localStorage.removeItem("jwtDecode");
-		localStorage.removeItem("user");
+		localStorage.removeItem(JWT_TOKEN);
+		localStorage.removeItem(USER);
 	} else {
-		initialState.user = { username, decodeToken };
+		INITIAL_STATE.user = { username, decodeToken };
 	}
 }
-
 const AuthContext = createContext({
 	user: null,
 	login: () => {},
 	logout: () => {},
 });
-
 function authReducer(state, action) {
 	switch (action.type) {
-		case "LOGIN":
+		case LOGIN:
 			return {
 				...state,
 				user: action.payload.result,
 			};
-		case "LOGOUT":
+		case LOGOUT:
 			return {
 				...state,
 				user: null,
@@ -40,30 +41,30 @@ function authReducer(state, action) {
 			return state;
 	}
 }
-
 function AuthProvider(props) {
-	const [state, dispatch] = useReducer(authReducer, initialState);
+	const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);
 	const navigate = useNavigate();
-
-	function login(userData) {
-		localStorage.setItem("jwtDecode", userData.token);
-		localStorage.setItem("user", userData.result.fullName);
-		dispatch({
-			type: "LOGIN",
-			payload: userData,
-		});
-		navigate("/dashboard");
-	}
-
-	function logout() {
-		localStorage.removeItem("jwtDecode");
-		localStorage.removeItem("user");
-		dispatch({
-			type: "LOGOUT",
-		});
-		navigate("/");
-	}
-
+	const login = useMemo(
+		() => (userData) => {
+			localStorage.setItem(JWT_TOKEN, userData.token);
+			localStorage.setItem(USER, userData.result.fullName);
+			dispatch({
+				type: LOGIN,
+				payload: userData,
+			});
+			navigate("/dashboard");
+		},
+		[navigate]
+	);
+	const logout = useMemo(
+		() => () => {
+			localStorage.removeItem(JWT_TOKEN);
+			localStorage.removeItem(USER);
+			dispatch({ type: LOGOUT });
+			navigate("/");
+		},
+		[navigate]
+	);
 	const authValue = useMemo(
 		() => ({
 			user: state.user,
@@ -72,8 +73,6 @@ function AuthProvider(props) {
 		}),
 		[state.user, login, logout]
 	);
-
 	return <AuthContext.Provider value={authValue} {...props} />;
 }
-
 export { AuthContext, AuthProvider };

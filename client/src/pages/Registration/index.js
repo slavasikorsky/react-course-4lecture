@@ -18,6 +18,24 @@ function Registration() {
 	const [data, error, { setFetch }] = useFetch(BASE_URL);
 	const context = useContext(AuthContext);
 
+	const inputRefs = [
+		firstNameRef,
+		lastNameRef,
+		emailRef,
+		phoneRef,
+		passwordRef,
+		confirmPasswordRef,
+	];
+
+	const inputNames = [
+		"firstName",
+		"lastName",
+		"email",
+		"phone",
+		"password",
+		"confirmPassword",
+	];
+
 	useEffect(() => {
 		return data && !data.message
 			? context.login(data)
@@ -26,6 +44,21 @@ function Registration() {
 
 	const handlerSubmit = async (e) => {
 		e.preventDefault();
+
+		if (inputRefs.every((ref) => ref.currentvalue)) {
+			const formData = inputRefs.reduce((acc, ref, index) => {
+				acc[inputNames[index]] = ref.current.value;
+				return acc;
+			}, {});
+			setFetch(JSON.stringify(formData));
+		} else {
+			notify.error(
+				"Please fill all required fields" || error,
+				"registration-error"
+			);
+		}
+
+		/* 
 		if (
 			firstNameRef.current.value &&
 			lastNameRef.current.value &&
@@ -47,7 +80,7 @@ function Registration() {
 				"Please fill all required fields" || error,
 				"registration-error"
 			);
-		}
+		} */
 	};
 
 	return (
