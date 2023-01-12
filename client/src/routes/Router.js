@@ -15,44 +15,40 @@ import Posts from "../pages/Posts";
 import Tasks from "../pages/Tasks";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
-import RequireAuth from "../components/RequireAuth";
 import Registration from "../pages/Registration";
 import Privacy from "../pages/Privacy";
-import CheckLayout from "../layout/CheckLayout";
+
+import PublicRouter from "./PublicRouter";
+import PrivateRouter from "./PrivateRouter";
 
 function PublicRoute() {
 	return (
 		<AuthProvider>
 			<Routes>
-				<Route element={<PublicLayout />}>
-					<Route index path="/" element={<Home />} />
-					<Route path="/about" element={<About />} />
-					<Route path="/contact" element={<Contact />} />
-					<Route path="/products/:id" element={<Product />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/registration" element={<Registration />} />
-					<Route path="*" element={<NoMutch />} />
+				<Route element={<PublicRouter />}>
+					<Route element={<PublicLayout />}>
+						<Route index path="/" element={<Home />} />
+						<Route path="/about" element={<About />} />
+						<Route path="/contact" element={<Contact />} />
+						<Route path="/products/:id" element={<Product />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/privacy" element={<Privacy />} />
+						<Route
+							path="/registration"
+							element={<Registration />}
+						/>
+						<Route path="*" element={<NoMutch />} />
+					</Route>
 				</Route>
-				<Route
-					element={
-						<RequireAuth>
-							<PrivateLayout />
-						</RequireAuth>
-					}
-				>
-					<Route path="/profile" element={<Profile />} />
-					<Route path="/dashboard" element={<Dashboard />} />
-					<Route path="/tasks" element={<Tasks />} />
-					<Route path="/posts" element={<Posts />} />
+				<Route element={<PrivateRouter />}>
+					<Route element={<PrivateLayout />}>
+						<Route path="/profile" element={<Profile />} />
+						<Route path="/dashboard" element={<Dashboard />} />
+						<Route path="/tasks" element={<Tasks />} />
+						<Route path="/posts" element={<Posts />} />
+						<Route path="/privacy" element={<Privacy />} />
+					</Route>
 				</Route>
-				<Route
-					path="/privacy"
-					element={
-						<CheckLayout>
-							<Privacy />
-						</CheckLayout>
-					}
-				/>
 			</Routes>
 		</AuthProvider>
 	);

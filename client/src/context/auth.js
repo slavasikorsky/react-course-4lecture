@@ -1,5 +1,5 @@
 import { useReducer, createContext, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 const LOGIN = "LOGIN";
@@ -43,7 +43,7 @@ function authReducer(state, action) {
 }
 function AuthProvider(props) {
 	const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	const login = useMemo(
 		() => (userData) => {
 			localStorage.setItem(JWT_TOKEN, userData.token);
@@ -52,18 +52,18 @@ function AuthProvider(props) {
 				type: LOGIN,
 				payload: userData,
 			});
-			navigate("/dashboard");
+			// navigate("/dashboard");
 		},
-		[navigate]
+		[]
 	);
 	const logout = useMemo(
 		() => () => {
 			localStorage.removeItem(JWT_TOKEN);
 			localStorage.removeItem(USER);
 			dispatch({ type: LOGOUT });
-			navigate("/");
+			// navigate("/");
 		},
-		[navigate]
+		[]
 	);
 	const authValue = useMemo(
 		() => ({
