@@ -4,7 +4,7 @@ import "./Post.scss";
 
 function Post(props) {
 	const [toggleMenu, setToggleMenu] = useState(false);
-	const { id, title, status, author, date, onEdit, onDelete } = props;
+	const { id, title, status, userID, createdAt, onEdit, onDelete } = props;
 
 	const editHandler = (e, index) => {
 		e.stopPropagation();
@@ -30,9 +30,9 @@ function Post(props) {
 				<span>{status}</span>
 			</span>
 			<span className="post-field data">
-				<span>{date}</span>
+				<span>{createdAt}</span>
 			</span>
-			<span className="post-field">{author}</span>
+			<span className="post-field">{userID}</span>
 			<button
 				type="button"
 				className="toggle-menu"

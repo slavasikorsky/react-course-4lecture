@@ -21,6 +21,8 @@
 	"plugins": ["react"],
 	"ignorePatterns": ["**/UI/**/*.js"],
 	"rules": {
+		"react/no-unstable-nested-components": "off",
+		"no-underscore-dangle": "off",
 		"object-shorthand": 0,
 		"spaceInEmptyObject": [0, "newer"],
 		"react/jsx-props-no-spreading": "off",

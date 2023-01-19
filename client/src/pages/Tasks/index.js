@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Input from "../../components/UI/Input";
 import DashboardContent from "../../components/DashboardContent";
@@ -8,74 +8,79 @@ import "./Tasks.scss";
 import Task from "./Task";
 
 function Tasks() {
-	const [tasks, setTasks] = useState([
-		{
-			id: 0,
-			name: "Test",
-			status: false,
-		},
-		{
-			id: 1,
-			name: "Test 3",
-			status: false,
-		},
-		{
-			id: 2,
-			name: "Test lorem ipsum",
-			status: false,
-		},
-		{
-			id: 3,
-			name: "Test lorem ipsum 2 pinned",
-			status: false,
-		},
-		{
-			id: 4,
-			name: "Test lorem ipsum d fsdf sdf dsfdsfsfds",
-			status: false,
-		},
-		{
-			id: 5,
-			name: " dsfassd dsdfs fdfsddf ",
-			status: false,
-		},
-	]);
+	const [tasks, setTasks] = useState(false);
+	const [error, setError] = useState(false);
+
+	useEffect(() => {
+		fetch("http://localhost:5010/task/", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then((result) => setTasks(result))
+			.catch((err) => {
+				setError(err);
+			});
+	}, [tasks]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (e.target.name.value) {
-			const newId = tasks.length + 1;
-			const newName = e.target.name.value;
-			setTasks([...tasks, { id: newId, name: newName, status: false }]);
-			e.target.name.value = "";
-		} else {
-			return false;
-		}
-		return false;
+		const taskContent = JSON.stringify({
+			task: e.target.name.value,
+		});
+		fetch(`http://localhost:5010/task/`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: taskContent,
+		})
+			.then((res) => res.json())
+			.then(() => setTasks(tasks));
 	};
 
 	const removeTask = (e, id) => {
 		e.preventDefault();
-		setTasks(tasks.filter((task) => task.id !== id));
+		fetch(`http://localhost:5010/task/${id}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then(() => setTasks(tasks));
 	};
 
-	const updateTask = (id, newName) => {
-		const updateTasks = tasks.map((task) =>
-			task.id === id ? { ...task, name: newName } : task
-		);
-		setTasks(updateTasks);
+	const updateTask = (id, param, value) => {
+		const updateContent = JSON.stringify({
+			[param]: value,
+		});
+		fetch(`http://localhost:5010/task/${id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: updateContent,
+		})
+			.then((res) => res.json())
+			.then(() => setTasks(tasks));
 	};
 
 	return (
 		<DashboardContent>
 			<h1>Tasks</h1>
+			{error && <p className="error">{error}</p>}
 			<ul className="tasks-list">
 				{tasks &&
 					tasks.map((task) => (
 						<Task
-							key={task.id}
-							id={task.id}
-							name={task.name}
+							key={task._id}
+							id={task._id}
+							name={task.task}
+							pinned={task.pinned}
+							completed={task.completed}
 							onRemove={removeTask}
 							onUpdate={updateTask}
 						/>

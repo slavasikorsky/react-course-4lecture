@@ -1,6 +1,6 @@
 import "./Input.scss";
 
-function Input({ type, name, className, value, placeholder, onChange }) {
+function Input({ type, name, className, value, placeholder, onChange, disabled }) {
 	return (
 		<input
 			className={className}
@@ -9,6 +9,7 @@ function Input({ type, name, className, value, placeholder, onChange }) {
 			value={value}
 			placeholder={placeholder}
 			onChange={onChange}
+			disabled={disabled || false}
 		/>
 	);
 }

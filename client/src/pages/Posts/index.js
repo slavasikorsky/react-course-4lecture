@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 
 import DashboardContent from "../../components/DashboardContent";
@@ -8,8 +7,10 @@ import Input from "../../components/UI/Input";
 import Textarea from "../../components/UI/Textarea";
 import Form from "../../components/UI/Form";
 import Post from "./Post";
+import useUserInfo from "../../hooks/useUserInfo";
 
 import "./Posts.scss";
+import { AuthContext } from "../../context/auth";
 
 function Posts() {
 	const customStyles = {
@@ -51,6 +52,10 @@ function Posts() {
 			backgroundColor: "#303033",
 		}),
 	};
+	const { user } = useContext(AuthContext);
+	const currentUserID = user?.id || user?._id;
+	const { userData } = useUserInfo(currentUserID);
+	const { fullName } = userData;
 
 	const [error, setError] = useState(false);
 	const [openPopup, setOpenPopup] = useState(false);
@@ -60,72 +65,73 @@ function Posts() {
 		{ value: "draft", label: "draft" },
 		{ value: "future", label: "future" },
 	];
-	const [posts, setPosts] = useState([
-		{
-			id: 1,
-			title: "Title",
-			author: "Admin",
-			status: "publish",
-			date: "2022-01-02",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing",
-		},
-		{
-			id: 2,
-			title: "Title another",
-			author: "User",
-			status: "draft",
-			date: "2022-05-07",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing el",
-		},
-		{
-			id: 3,
-			title: "Title 123",
-			author: "User",
-			status: "future",
-			date: "2022-07-12",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing el",
-		},
-	]);
+	const [posts, setPosts] = useState();
+
+	const loadPosts = async () => {
+		const { data } = await fetch("http://localhost:5010/posts/", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then(async (res) => {
+			try {
+				const newData = res.json();
+				return newData;
+			} catch (err) {
+				setError(err);
+			}
+			return false;
+		});
+		setPosts(data);
+	};
+
+	useEffect(() => {
+		loadPosts();
+	}, [posts]);
 
 	const [updatePost, setUpdatePost] = useState({});
 
 	const submitHandler = (e, id) => {
 		e.preventDefault();
 		const title = e.target.title.value;
-		const author = e.target.author.value;
-		const date = e.target.date.value;
+		const userID = e.target.userId.value;
+		const createdAt = e.target.createdAt.value;
 		const status = e.target.status.value;
-		const text = e.target.text.value;
+		const body = e.target.body.value;
 
-		if (title && author && date && status) {
+		if (title && createdAt && status) {
+			// update post
 			if (id) {
-				const updatedPost = posts.map((post) =>
-					/* eslint-disable */
-					post.id === id
-						? {
-							...post,
-							title: title,
-							author: author,
-							status: status,
-							date: date,
-							text: text,
-						}
-						: post
-				);
-				setPosts(updatedPost);
-			} else {
-				const newID = uuidv4();
-				setPosts([
-					...posts,
-					{
-						id: newID,
-						title: title,
-						author: author,
-						status: status,
-						date: date,
-						text: text,
+				fetch(`http://localhost:5010/posts/${id}`, {
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
 					},
-				]);
+					body: JSON.stringify({
+						title: title,
+						createdAt: createdAt,
+						status: status,
+						body: body,
+					}),
+				})
+					.then((res) => res.json())
+					.then(() => setPosts(posts));
+			} else {
+				// add post to DB
+				fetch("http://localhost:5010/posts/", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						title: title,
+						userID: userID,
+						status: status,
+						body: body,
+					}),
+				})
+					.then((res) => res.json())
+					.then((data) => setPosts([...posts, data]));
 			}
 			setError(false);
 			setOpenPopup(false);
@@ -137,12 +143,19 @@ function Posts() {
 
 	const editHandler = (postId) => {
 		setOpenPopup(!openPopup);
-		const updated = posts.filter((post) => post.id === postId);
+		const updated = posts.filter((post) => post._id === postId);
 		setUpdatePost(updated[0]);
 	};
 
 	const deleteHandler = (id) => {
-		setPosts(posts.filter((post) => post.id !== id));
+		fetch(`http://localhost:5010/posts/${id}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then(() => setPosts(posts));
 	};
 
 	return (
@@ -162,18 +175,19 @@ function Posts() {
 					<li>
 						<span className="post-field">Title</span>
 						<span className="post-field">Status</span>
-						<span className="post-field">Data</span>
-						<span className="post-field">Author</span>
+						<span className="post-field">Date</span>
+						<span className="post-field">User</span>
 					</li>
+
 					{posts.map((post) => (
 						<Post
-							key={post.id}
-							id={post.id}
+							key={post._id}
+							id={post._id}
 							title={post.title}
-							author={post.author}
+							userID={post.userID}
 							status={post.status}
-							date={post.date}
-							text={post.text}
+							createdAt={post.createdAt.slice(0, 10)}
+							body={post.body}
 							onEdit={editHandler}
 							onDelete={deleteHandler}
 						/>
@@ -183,8 +197,8 @@ function Posts() {
 				<p>Not found</p>
 			)}
 			<Popup trigger={openPopup} setTtiger={setOpenPopup}>
-				<Form onSubmit={(e) => submitHandler(e, updatePost.id)}>
-					<h1>Create post</h1>
+				<Form onSubmit={(e) => submitHandler(e, updatePost._id)}>
+					<h1>Post content</h1>
 					{error && <p className="error">{error}</p>}
 					<div className="row">
 						<Input
@@ -203,15 +217,10 @@ function Posts() {
 						<Input
 							type="text"
 							className="input purple"
-							name="author"
-							placeholder="Author"
-							onChange={(e) =>
-								setUpdatePost({
-									...updatePost,
-									author: e.target.value,
-								})
-							}
-							value={updatePost.author || ""}
+							name="userId"
+							placeholder={fullName}
+							value={fullName}
+							disabled="true"
 						/>
 					</div>
 					<div className="row">
@@ -235,28 +244,28 @@ function Posts() {
 						<Input
 							className="input purple"
 							type="date"
-							name="date"
+							name="createdAt"
 							placeholder="Date"
 							onChange={(e) =>
 								setUpdatePost({
 									...updatePost,
-									date: e.target.value,
+									createdAt: e.target.value,
 								})
 							}
-							value={updatePost.date || ""}
+							value={updatePost.createdAt?.slice(0, 10) || ""}
 						/>
 					</div>
 					<Textarea
 						className="textarea purple"
-						name="text"
+						name="body"
 						placeholder="Text"
 						onChange={(e) =>
 							setUpdatePost({
 								...updatePost,
-								text: e.target.value,
+								body: e.target.value,
 							})
 						}
-						value={updatePost.text || ""}
+						value={updatePost.body || ""}
 					/>
 					<button type="submit" className="button purple">
 						Add

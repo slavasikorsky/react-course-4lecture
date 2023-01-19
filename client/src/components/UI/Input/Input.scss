@@ -13,4 +13,8 @@
 		background: #bdb2ff;
 		color: #000;
 	}
+
+	&:disabled {
+		opacity: 0.7;
+	}
 }

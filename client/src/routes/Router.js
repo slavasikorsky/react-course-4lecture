@@ -17,41 +17,55 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Registration from "../pages/Registration";
 import Privacy from "../pages/Privacy";
+import Settings from "../pages/Settings";
+import CheckLayout from "../layout/CheckLayout";
 
-import PublicRouter from "./PublicRouter";
 import PrivateRouter from "./PrivateRouter";
+import PublicRouter from "./PublicRouter";
 
-function PublicRoute() {
+function Router() {
 	return (
 		<AuthProvider>
 			<Routes>
-				<Route element={<PublicRouter />}>
-					<Route element={<PublicLayout />}>
-						<Route index path="/" element={<Home />} />
-						<Route path="/about" element={<About />} />
-						<Route path="/contact" element={<Contact />} />
-						<Route path="/products/:id" element={<Product />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/privacy" element={<Privacy />} />
-						<Route
-							path="/registration"
-							element={<Registration />}
-						/>
-						<Route path="*" element={<NoMutch />} />
-					</Route>
+				<Route
+					element={
+						<PublicRouter>
+							<PublicLayout />
+						</PublicRouter>
+					}
+				>
+					<Route index path="/" element={<Home />} />
+					<Route path="/about" element={<About />} />
+					<Route path="/contact" element={<Contact />} />
+					<Route path="/products/:id" element={<Product />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/registration" element={<Registration />} />
+					<Route path="*" element={<NoMutch />} />
 				</Route>
-				<Route element={<PrivateRouter />}>
-					<Route element={<PrivateLayout />}>
-						<Route path="/profile" element={<Profile />} />
-						<Route path="/dashboard" element={<Dashboard />} />
-						<Route path="/tasks" element={<Tasks />} />
-						<Route path="/posts" element={<Posts />} />
-						<Route path="/privacy" element={<Privacy />} />
-					</Route>
+				<Route
+					element={
+						<PrivateRouter>
+							<PrivateLayout />
+						</PrivateRouter>
+					}
+				>
+					<Route path="/profile" element={<Profile />} />
+					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/tasks" element={<Tasks />} />
+					<Route path="/posts" element={<Posts />} />
+					<Route path="/settings" element={<Settings />} />
 				</Route>
+				<Route
+					path="/privacy"
+					element={
+						<CheckLayout>
+							<Privacy />
+						</CheckLayout>
+					}
+				/>
 			</Routes>
 		</AuthProvider>
 	);
 }
 
-export default PublicRoute;
+export default Router;

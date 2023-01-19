@@ -8,9 +8,9 @@ import Star from "../../../components/UI/Star";
 import "./Task.scss";
 
 function Task(props) {
-	const { edit, id, name, onRemove, onUpdate } = props;
-	const [pinned, setPinned] = useState(false);
-	const [done, setDone] = useState(false);
+	const { edit, id, name, completed, pinned, onRemove, onUpdate } = props;
+	// const [pinned, setPinned] = useState(false);
+	// const [done, setComlete] = useState(false);
 	const [editProps, setEditProps] = useState(edit);
 
 	const [editedName, setEditedName] = useState(name);
@@ -18,7 +18,7 @@ function Task(props) {
 	const submitHandler = (e, index, newName) => {
 		e.preventDefault();
 		if (editedName) {
-			onUpdate(index, newName);
+			onUpdate(index, "task", newName);
 		} else {
 			alert("Please enter name");
 		}
@@ -28,10 +28,15 @@ function Task(props) {
 	return (
 		<li
 			key={id}
-			className={`task ${done ? `done` : ""} ${pinned ? `pinned` : ""}`}
+			className={`task ${completed ? `done` : ""} ${
+				pinned ? `pinned` : ""
+			}`}
 		>
-			<button type="button" onClick={() => setDone(!done)}>
-				<Star fill={`${done ? "#FFD700" : "#919294"}`} />
+			<button
+				type="button"
+				onClick={() => onUpdate(id, "completed", !completed)}
+			>
+				<Star fill={`${completed ? "#FFD700" : "#919294"}`} />
 			</button>
 			{editProps ? (
 				<form onSubmit={(e) => submitHandler(e, id, editedName)}>
@@ -47,7 +52,10 @@ function Task(props) {
 				<span>{name}</span>
 			)}
 			<div className="panel">
-				<button type="button" onClick={() => setPinned(!pinned)}>
+				<button
+					type="button"
+					onClick={() => onUpdate(id, "pinned", !pinned)}
+				>
 					<Pin />
 				</button>
 				<button type="button" onClick={() => setEditProps(!editProps)}>

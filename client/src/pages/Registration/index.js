@@ -45,7 +45,7 @@ function Registration() {
 	const handlerSubmit = async (e) => {
 		e.preventDefault();
 
-		if (inputRefs.every((ref) => ref.currentvalue)) {
+		if (inputRefs.every((ref) => ref.current.value)) {
 			const formData = inputRefs.reduce((acc, ref, index) => {
 				acc[inputNames[index]] = ref.current.value;
 				return acc;
@@ -57,30 +57,6 @@ function Registration() {
 				"registration-error"
 			);
 		}
-
-		/* 
-		if (
-			firstNameRef.current.value &&
-			lastNameRef.current.value &&
-			emailRef.current.value &&
-			passwordRef.current.value &&
-			confirmPasswordRef.current.value
-		) {
-			setFetch(
-				JSON.stringify({
-					firstName: firstNameRef.current.value,
-					lastName: lastNameRef.current.value,
-					email: emailRef.current.value,
-					password: passwordRef.current.value,
-					confirmPassword: confirmPasswordRef.current.value,
-				})
-			);
-		} else {
-			notify.error(
-				"Please fill all required fields" || error,
-				"registration-error"
-			);
-		} */
 	};
 
 	return (
@@ -91,13 +67,13 @@ function Registration() {
 					<div className="col">
 						<input
 							type="text"
-							name="fname"
+							name="firstName"
 							ref={firstNameRef}
 							placeholder="First name"
 						/>
 						<input
 							type="text"
-							name="lname"
+							name="lastName"
 							ref={lastNameRef}
 							placeholder="Last name"
 						/>

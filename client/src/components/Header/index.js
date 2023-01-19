@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../context/auth";
 
 import Container from "../Container";
 import Wrapper from "../Wrapper";
@@ -8,12 +7,17 @@ import NavList from "../NavList";
 
 import { ReactComponent as SignInIcon } from "../../assets/images/icons/sign-in.svg";
 import { ReactComponent as UserIcon } from "../../assets/images/icons/user.svg";
+import useUserInfo from "../../hooks/useUserInfo";
 
 import "./Header.scss";
+import { AuthContext } from "../../context/auth";
 
 function Header() {
 	const { user, logout } = useContext(AuthContext);
-	const userName = user?.username || user?.fullName;
+	const userID = user?.id || user?._id;
+
+	const { userData } = useUserInfo(userID);
+	const { fullName } = userData;
 
 	const navLinks = [
 		{
@@ -67,7 +71,7 @@ function Header() {
 						<NavList data={navLinks} direction="horizontal" />
 					)}
 					<div className="login-block">
-						{userName ? (
+						{fullName ? (
 							<div className="user-info">
 								<a
 									href="#/"
@@ -75,7 +79,7 @@ function Header() {
 									onClick={() => setOpenMenu(!openMenu)}
 								>
 									<UserIcon />
-									<span>{userName}</span>
+									<span>{fullName}</span>
 								</a>
 								<div
 									className={`user-menu 

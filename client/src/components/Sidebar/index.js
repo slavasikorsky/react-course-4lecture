@@ -1,9 +1,15 @@
+import { useContext } from "react";
 import SidebarLink from "./SidebarLink";
+import UserData from "../UserData";
+import { AuthContext } from "../../context/auth";
+import useUserInfo from "../../hooks/useUserInfo";
 
 import "./Sidebar.scss";
-import UserData from "../UserData";
 
 function Sidebar() {
+	const { user } = useContext(AuthContext);
+	const userID = user?.id || user?._id;
+	const { userData } = useUserInfo(userID);
 	const sidebarLinks = [
 		{
 			link: "/dashboard",
@@ -21,7 +27,7 @@ function Sidebar() {
 
 	return (
 		<div className="sidebar">
-			<UserData />
+			<UserData data={userData} />
 			<ul className="sidebar-links">
 				{sidebarLinks &&
 					sidebarLinks.map((item) => (
