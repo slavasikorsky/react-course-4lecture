@@ -11,7 +11,7 @@ function Tasks() {
 	const [tasks, setTasks] = useState(false);
 	const [error, setError] = useState(false);
 
-	useEffect(() => {
+	const loadTosks = () => {
 		fetch("http://localhost:5010/task/", {
 			method: "GET",
 			headers: {
@@ -23,7 +23,11 @@ function Tasks() {
 			.catch((err) => {
 				setError(err);
 			});
-	}, [tasks]);
+	};
+
+	useEffect(() => {
+		loadTosks();
+	}, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -38,7 +42,7 @@ function Tasks() {
 			body: taskContent,
 		})
 			.then((res) => res.json())
-			.then(() => setTasks(tasks));
+			.then(() => loadTosks());
 	};
 
 	const removeTask = (e, id) => {
@@ -50,7 +54,7 @@ function Tasks() {
 			},
 		})
 			.then((res) => res.json())
-			.then(() => setTasks(tasks));
+			.then(() => loadTosks());
 	};
 
 	const updateTask = (id, param, value) => {

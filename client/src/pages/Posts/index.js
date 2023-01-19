@@ -87,7 +87,7 @@ function Posts() {
 
 	useEffect(() => {
 		loadPosts();
-	}, [posts]);
+	}, []);
 
 	const [updatePost, setUpdatePost] = useState({});
 
@@ -155,7 +155,7 @@ function Posts() {
 			},
 		})
 			.then((res) => res.json())
-			.then(() => setPosts(posts));
+			.then(() => loadPosts());
 	};
 
 	return (
