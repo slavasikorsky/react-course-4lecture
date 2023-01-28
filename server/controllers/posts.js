@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+dotenv.config();
 import Post from "../models/post.js";
+import User from "../models/user.js";
+
+const PORT = process.env.PORT || 3010;
 
 export const getPost = async (req, res) => {
   const { id } = req.params;
@@ -34,16 +39,27 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const post = req.body;
-  const newPost = new Post({
-    ...post,
-    createdAt: new Date().toISOString(),
+  if (req.file == undefined) {
+    return res.json({ message: "Error: No File Selected!" });
+  }
+
+  const { title, body, tag, categories, slug } = req.body;
+  const fullUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+
+  const post = new Post({
+    title,
+    body,
+    tag,
+    categories,
+    slug,
+    thumbnail: fullUrl,
   });
+
   try {
-    await newPost.save();
-    res.status(201).json(newPost);
-  } catch (error) {
-    res.status(409).json({ message: error });
+    const newPost = await post.save();
+    res.json(newPost);
+  } catch (err) {
+    res.json({ message: err });
   }
 };
 
@@ -93,4 +109,65 @@ export const RemoveLikeFromPost = async (req, res) => {
   await post.save();
 
   return res.json(post);
+};
+
+export const addCommentToPost = async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    let userId = req.body.userId;
+    if (!user) {
+      userId = "ghost";
+    }
+    const post = await Post.findById(req.params.id);
+    post.comments.push({ text: req.body.text, userId: userId });
+    await post.save();
+    res.status(201).json(post);
+  } catch (error) {
+    res.status(404).json({ message: "Post not found" });
+  }
+};
+
+export const allComments = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    res.status(201).json(post.comments);
+  } catch (error) {
+    res.status(404).json({ message: "Post not found" });
+  }
+};
+
+export const likeComment = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    const comment = post.comments.id(req.params.commentId);
+    comment.likes++;
+    await post.save();
+    res.json(post);
+  } catch (error) {
+    res.status(404).json({ message: "Comment not found" });
+  }
+};
+
+export const replyComment = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    const comment = post.comments.id(req.params.commentId);
+    comment.replies.push(req.body.text);
+    await post.save();
+    res.json(post);
+  } catch (error) {
+    res.status(404).json({ message: "Comment not found" });
+  }
+};
+
+export const viewCount = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await Post.findById(id);
+    post.views++;
+    await post.save();
+    res.json(post);
+  } catch (error) {
+    res.status(404).json({ message: "Post not found" });
+  }
 };
