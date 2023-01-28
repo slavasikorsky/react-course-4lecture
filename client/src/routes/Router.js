@@ -37,7 +37,7 @@ function Router() {
 					<Route index path="/" element={<Home />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/contact" element={<Contact />} />
-					<Route path="/products/:id" element={<Product />} />
+					<Route path="/posts/:id" element={<Product />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/registration" element={<Registration />} />
 					<Route path="*" element={<NoMutch />} />
