@@ -7,17 +7,13 @@ import NavList from "../NavList";
 
 import { ReactComponent as SignInIcon } from "../../assets/images/icons/sign-in.svg";
 import { ReactComponent as UserIcon } from "../../assets/images/icons/user.svg";
-import useUserInfo from "../../hooks/useUserInfo";
 
 import "./Header.scss";
 import { AuthContext } from "../../context/auth";
 
 function Header() {
 	const { user, logout } = useContext(AuthContext);
-	const userID = user?.id || user?._id;
-
-	const { userData } = useUserInfo(userID);
-	const { fullName } = userData;
+	const { fullName } = user || false;
 
 	const navLinks = [
 		{

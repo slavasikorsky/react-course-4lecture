@@ -2,14 +2,15 @@ import { useContext } from "react";
 import SidebarLink from "./SidebarLink";
 import UserData from "../UserData";
 import { AuthContext } from "../../context/auth";
-import useUserInfo from "../../hooks/useUserInfo";
 
 import "./Sidebar.scss";
 
 function Sidebar() {
 	const { user } = useContext(AuthContext);
-	const userID = user?.id || user?._id;
-	const { userData } = useUserInfo(userID);
+	const userData = {
+		fullName: user.fullName,
+		email: user.email,
+	};
 	const sidebarLinks = [
 		{
 			link: "/dashboard",

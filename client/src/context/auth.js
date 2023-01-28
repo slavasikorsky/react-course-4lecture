@@ -4,6 +4,7 @@ import jwtDecode from "jwt-decode";
 
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
+const UPDATE = "UPDATE";
 const JWT_TOKEN = "jwtToken";
 const INITIAL_STATE = {
 	user: null,
@@ -21,6 +22,7 @@ const AuthContext = createContext({
 	user: null,
 	login: () => {},
 	logout: () => {},
+	update: () => {},
 });
 function authReducer(state, action) {
 	switch (action.type) {
@@ -33,6 +35,11 @@ function authReducer(state, action) {
 			return {
 				...state,
 				user: null,
+			};
+		case "UPDATE":
+			return {
+				...state,
+				user: action.payload,
 			};
 		default:
 			return state;
@@ -60,13 +67,25 @@ function AuthProvider(props) {
 		},
 		[]
 	);
+	const update = useMemo(
+		() => (userData) => {
+			localStorage.setItem(JWT_TOKEN, userData.token);
+			dispatch({
+				type: UPDATE,
+				payload: userData.data,
+			});
+		},
+		[]
+	);
+
 	const authValue = useMemo(
 		() => ({
 			user: state.user,
 			login,
 			logout,
+			update,
 		}),
-		[state.user, login, logout]
+		[state.user, login, logout, update]
 	);
 	return <AuthContext.Provider value={authValue} {...props} />;
 }

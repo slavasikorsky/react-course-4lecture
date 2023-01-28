@@ -11,6 +11,7 @@ import "./Profile.scss";
 
 function Profile() {
 	const { user, logout } = useContext(AuthContext);
+	const context = useContext(AuthContext);
 	const userID = user.id || user._id;
 
 	const [openPopup, setOpenPopup] = useState(false);
@@ -73,6 +74,7 @@ function Profile() {
 			.then((res) => res.json())
 			.then((result) => {
 				setUserData(result);
+				context.update(result);
 				setOpenPopup(!openPopup);
 			})
 			.catch((err) => {
