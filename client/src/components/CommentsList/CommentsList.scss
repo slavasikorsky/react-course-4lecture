@@ -1,0 +1,35 @@
+.comments-list {
+	list-style: none;
+	padding: 0;
+	li {
+		padding: 12px 10px;
+		border-radius: 20px 10px;
+		border: 1px solid #ccc;
+		margin: 0 0 10px;
+	}
+
+	.buttons {
+		float: right;
+		button {
+			background-color: teal;
+			color: #fff;
+			border: none;
+			cursor: pointer;
+			margin: 0 10px;
+			padding: 3px 10px;
+		}
+	}
+}
+
+.reply-from {
+	display: none;
+	&.active {
+		display: block;
+	}
+}
+
+.comment-replies {
+	padding-left: 20px;
+	font-size: 12px;
+	margin-top: 10px;
+}
