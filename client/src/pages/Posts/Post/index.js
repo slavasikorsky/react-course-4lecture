@@ -4,7 +4,7 @@ import "./Post.scss";
 
 function Post(props) {
 	const [toggleMenu, setToggleMenu] = useState(false);
-	const { id, title, status, userID, createdAt, onEdit, onDelete } = props;
+	const { id, title, categories, createdAt, tag, onEdit, onDelete } = props;
 
 	const editHandler = (e, index) => {
 		e.stopPropagation();
@@ -26,13 +26,13 @@ function Post(props) {
 	return (
 		<li className="post">
 			<span className="post-field">{title}</span>
-			<span className={`post-field ${status}`}>
-				<span>{status}</span>
+			<span className="post-field">
+				<span>{categories}</span>
 			</span>
 			<span className="post-field data">
 				<span>{createdAt}</span>
 			</span>
-			<span className="post-field">{userID}</span>
+			<span className="post-field">{tag}</span>
 			<button
 				type="button"
 				className="toggle-menu"

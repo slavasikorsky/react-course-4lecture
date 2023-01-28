@@ -10,8 +10,9 @@ import Loader from "../../helpers/Loader";
 import "./Product.scss";
 
 function Product() {
-	const API_URL = "https://dummyjson.com";
+	const API_URL = "http://localhost:5010";
 	const [post, setPost] = useState([]);
+	const [view, serView] = useState(0);
 	const location = useLocation();
 
 	const loadPost = () => {
@@ -25,8 +26,44 @@ function Product() {
 			});
 	};
 
+	const likesHandler = (e) => {
+		e.preventDefault();
+		axios
+			.put(`${API_URL}${location.pathname}/like`)
+			.then((res) => {
+				setPost(res.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const viewHandler = async () => {
+		await axios
+			.patch(`${API_URL}${location.pathname}/viewcount`)
+			.then((res) => {
+				serView(res.data.views);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const dislikesHandler = (e) => {
+		e.preventDefault();
+		axios
+			.delete(`${API_URL}${location.pathname}/like`)
+			.then((res) => {
+				setPost(res.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
 	useEffect(() => {
 		loadPost();
+		viewHandler();
 	}, []);
 
 	return (
@@ -34,20 +71,31 @@ function Product() {
 			<Hero image={post.thumbnail} title={post.title} />
 			<Container>
 				<div className="post-content">
-					<p>{post.description}</p>
-					<p>Price: {post.price}</p>
-					<div className="post-content__images">
-						{post.images &&
-							post.images.map((image, index) => (
-								<img src={image} key={image.id} alt={index} />
-							))}
-					</div>
+					<p dangerouslySetInnerHTML={{ __html: post.body }} />
 					<div className="post-info">
-						<p>Brand: {post.brand}</p>
-						<p>Category: {post.category}</p>
+						<p>Category: {post.categories}</p>
+						<p>Tags: {post.tag}</p>
+					</div>
+					<div className="post-stats">
+						<span>Likes:{post.likes}</span>
+						<span> Views: {view}</span>
+						<button
+							type="button"
+							className="post-like"
+							onClick={(e) => likesHandler(e)}
+						>
+							Like
+						</button>
+						<button
+							type="button"
+							className="post-dislike"
+							onClick={(e) => dislikesHandler(e)}
+						>
+							Dislike
+						</button>
 					</div>
 				</div>
-				{post.id ? <CommentsList postID={post.id} /> : <Loader />}
+				{post._id ? <CommentsList id={post._id} /> : <Loader />}
 			</Container>
 		</div>
 	);

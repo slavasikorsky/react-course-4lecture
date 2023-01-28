@@ -19,12 +19,13 @@ function CardList(props) {
 			{/* Show first card like top news full container width */}
 			{first ? (
 				<CardItem
-					id={first.id}
+					id={first._id}
 					title={first.title}
 					imgSrc={first.thumbnail}
-					text={first.description}
-					price={first.price}
-					rating={first.rating}
+					text={first.body}
+					categories={first.categories}
+					tag={first.tag}
+					rating={first.likes}
 				/>
 			) : (
 				false
@@ -41,13 +42,14 @@ function CardList(props) {
 							index > 0 ? (
 								<CardItem
 									clName="grid__item grid__item--masonry"
-									key={item.id}
-									id={item.id}
+									key={item._id}
+									id={item._id}
 									title={item.title}
 									imgSrc={item.thumbnail}
-									text={item.description}
-									price={item.price}
-									rating={item.rating}
+									text={item.body}
+									categories={item.categories}
+									tag={item.tag}
+									rating={item.likes}
 								/>
 							) : (
 								false

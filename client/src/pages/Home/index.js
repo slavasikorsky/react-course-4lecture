@@ -1,20 +1,18 @@
-import React, { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 
+import CardList from "../../components/CardList";
 import Container from "../../components/Container";
 import Filter from "../../components/Filter";
 import Search from "../../components/Search";
 import Hero from "../../components/Hero";
 import Wrapper from "../../components/Wrapper";
 import Button from "../../components/Button";
-import Loader from "../../helpers/Loader";
 
 import heroImage from "../../assets/images/hero.png";
 
-const CardList = React.lazy(() => import("../../components/CardList"));
-
 function Home() {
-	const API_URL = "https://dummyjson.com/products";
+	const API_URL = "http://localhost:5010/posts/";
 	const postPerPage = 10;
 
 	const [posts, setPosts] = useState([]);
@@ -31,9 +29,8 @@ function Home() {
 				},
 			})
 			.then((res) => {
-				setPosts([...posts, ...res.data.products]);
+				setPosts([...posts, ...res.data.data]);
 				setSkip((preventNumbers) => preventNumbers + 10);
-				// seIsComplited(res.data.products.length > 0);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -84,8 +81,8 @@ function Home() {
 						<Search postsHandler={postSearch} />
 					</Wrapper>
 					<Wrapper>
-						<Suspense fallback={<Loader />}>
-							<CardList data={posts} />
+						<Suspense fallback={<h1>Loading posts...</h1>}>
+							{posts && <CardList data={posts} />}
 						</Suspense>
 						{loadMore ? (
 							<Button
