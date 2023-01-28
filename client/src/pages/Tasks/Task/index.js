@@ -9,8 +9,6 @@ import "./Task.scss";
 
 function Task(props) {
 	const { edit, id, name, completed, pinned, onRemove, onUpdate } = props;
-	// const [pinned, setPinned] = useState(false);
-	// const [done, setComlete] = useState(false);
 	const [editProps, setEditProps] = useState(edit);
 
 	const [editedName, setEditedName] = useState(name);
