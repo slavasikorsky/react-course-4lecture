@@ -24,6 +24,10 @@ function Sidebar() {
 			link: "/tasks",
 			title: "Tasks",
 		},
+		{
+			link: "/settings",
+			title: "Settings",
+		},
 	];
 
 	return (

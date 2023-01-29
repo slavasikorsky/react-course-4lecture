@@ -32,6 +32,10 @@ function Header() {
 			link: "/privacy",
 			title: "privacy",
 		},
+		{
+			link: "/portfolio",
+			title: "portfolio",
+		},
 	];
 
 	const userLinks = [
