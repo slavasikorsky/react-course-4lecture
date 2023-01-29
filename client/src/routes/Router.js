@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 import PrivateLayout from "../layout/PrivateLayout";
 import PublicLayout from "../layout/PublicLayout";
@@ -18,12 +19,46 @@ import Profile from "../pages/Profile";
 import Registration from "../pages/Registration";
 import Privacy from "../pages/Privacy";
 import Settings from "../pages/Settings";
+import Portfolio from "../pages/Portfolio";
 import CheckLayout from "../layout/CheckLayout";
 
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
 
+const titles = {
+	"/": "Home page",
+	"/about": "About us page",
+	"/dashboard": "Dashboard page",
+	"/settings": "Settings page",
+	"/login": "Login page",
+	"/registration": "Register page",
+	"/contact": "Contact us",
+	"/privacy": "Privacy policy page",
+	"/portfolio": "Portfolio page",
+};
+
+const description = {
+	"/": "Lorem ipsum dolor sit amet, consect",
+	"/about": "Lorem ipsum dolor sit amet, consect",
+	"/dashboard": "Vestibulum rhoncus ipsum non ultrices dapibus",
+	"/settings": "Lorem ipsum dolor sit amet, consect",
+	"/login": "Lorem ipsum dolor sit amet, consect",
+	"/registration": "Lorem ipsum dolor sit amet, consect",
+	"/contact": "Contact us page description",
+	"/privacy":
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rhoncus ipsum non ultrices dapibus. Etiam vel sapien at ex pulvinar luctus vel nec lacus. Morbi id magna vitae tortor dignissim imperdiet tincidunt congue libero.",
+	"/portfolio": "Portfolio page description",
+};
+
 function Router() {
+	const location = useLocation();
+
+	useEffect(() => {
+		document.title = titles[location.pathname] ?? "My app";
+		document.querySelector('meta[name="description"]').content =
+			description[location.pathname] ?? "Page description here";
+	}, [location]);
+
 	return (
 		<AuthProvider>
 			<Routes>
@@ -40,6 +75,7 @@ function Router() {
 					<Route path="/posts/:id" element={<Product />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/registration" element={<Registration />} />
+					<Route path="/portfolio" element={<Portfolio />} />
 					<Route path="*" element={<NoMutch />} />
 				</Route>
 				<Route
