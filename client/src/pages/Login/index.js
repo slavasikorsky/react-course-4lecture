@@ -1,9 +1,10 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import notify from "../../helpers/Notification";
 
 import Form from "../../components/UI/Form";
+import Eye from "../../components/UI/Eye";
 
 import "./Login.scss";
 import useFetch from "../../hooks/useFetch";
@@ -12,6 +13,7 @@ function Login() {
 	const BASE_URL = "http://localhost:5010/user/login";
 	const [data, error, { setFetch }] = useFetch(BASE_URL);
 	const context = useContext(AuthContext);
+	const [passwordShow, setPasswordShow] = useState(false);
 
 	useEffect(() => {
 		if (data && !data.message) {
@@ -24,6 +26,11 @@ function Login() {
 	const emailRef = useRef();
 	const passRef = useRef();
 
+	const togglePassword = (e) => {
+		e.preventDefault();
+		setPasswordShow(!passwordShow);
+	};
+
 	const handlerSubmit = (e) => {
 		e.preventDefault();
 		if (emailRef.current.value && passRef.current.value) {
@@ -34,8 +41,7 @@ function Login() {
 				})
 			);
 		} else {
-			console.log(error);
-			notify.error("Please write login/password", "login-error");
+			notify.error(error, "login-error");
 		}
 	};
 
@@ -50,13 +56,24 @@ function Login() {
 						ref={emailRef}
 						placeholder="username"
 					/>
-					<input
-						type="password"
-						name="pass"
-						ref={passRef}
-						placeholder="pass"
-					/>
-					<button type="submit">Login</button>
+					<div className="wrapper">
+						<input
+							type={passwordShow ? "text" : "password"}
+							name="pass"
+							ref={passRef}
+							placeholder="pass"
+						/>
+						<button
+							className="show-hide"
+							onClick={(e) => togglePassword(e)}
+							type="button"
+						>
+							<Eye />
+						</button>
+					</div>
+					<button className="button" type="submit">
+						Login
+					</button>
 				</Form>
 				<NavLink to="/registration" className="registration-link">
 					Create accout

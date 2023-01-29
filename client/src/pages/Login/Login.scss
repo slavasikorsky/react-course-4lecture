@@ -27,6 +27,20 @@
 	input {
 		width: 100%;
 	}
+	.wrapper {
+		position: relative;
+		.show-hide {
+			cursor: pointer;
+			background-color: transparent;
+			border: none;
+			position: absolute;
+			top: 15px;
+			right: 10px;
+			z-index: 1;
+			width: 20px;
+			height: 20px;
+		}
+	}
 }
 
 .registration-link {
