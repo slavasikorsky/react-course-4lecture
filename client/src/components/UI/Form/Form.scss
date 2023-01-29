@@ -7,9 +7,17 @@
 		justify-content: space-between;
 		margin: 0 0 40px;
 		.select,
-		input {
+		.input {
 			width: 44%;
 		}
+	}
+
+	.label {
+		cursor: pointer;
+		overflow: hidden;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
 	}
 
 	input {

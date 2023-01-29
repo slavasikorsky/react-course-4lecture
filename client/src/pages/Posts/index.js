@@ -50,7 +50,7 @@ function Posts() {
 	};
 
 	const changeFileHandler = (e) => {
-		setThumbnailName(e.target.files[0]);
+		setThumbnailName(e.target.files[0].name);
 		setNewPost({
 			...newPost,
 			[e.target.name]: e.target.files[0],
@@ -141,6 +141,7 @@ function Posts() {
 					onClick={() => {
 						setOpenPopup(!openPopup);
 						setNewPost(false);
+						setThumbnailName("Upload file");
 					}}
 					className="new"
 				>
@@ -204,8 +205,11 @@ function Posts() {
 							onChange={changeHandler}
 							value={newPost.tag}
 						/>
-						<label className="label input" htmlFor="filePicker">
-							{thumbnailName || "File name"}
+						<label
+							className="label input purple"
+							htmlFor="filePicker"
+						>
+							{thumbnailName || "Upload file"}
 							<input
 								type="file"
 								id="filePicker"

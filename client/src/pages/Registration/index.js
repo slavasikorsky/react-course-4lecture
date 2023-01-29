@@ -106,7 +106,9 @@ function Registration() {
 							placeholder="Confirm pass"
 						/>
 					</div>
-					<button type="submit">Register</button>
+					<button className="button" type="submit">
+						Register
+					</button>
 				</Form>
 			</div>
 		</div>
