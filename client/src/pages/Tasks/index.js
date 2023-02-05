@@ -69,7 +69,7 @@ function Tasks() {
 			body: updateContent,
 		})
 			.then((res) => res.json())
-			.then(() => setTasks(tasks));
+			.then(() => loadTosks());
 	};
 
 	return (
