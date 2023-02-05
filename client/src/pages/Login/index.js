@@ -56,7 +56,7 @@ function Login() {
 						ref={emailRef}
 						placeholder="username"
 					/>
-					<div className="wrapper">
+					<div className="wrapper-input">
 						<input
 							type={passwordShow ? "text" : "password"}
 							name="pass"
