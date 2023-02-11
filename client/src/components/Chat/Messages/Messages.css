@@ -1,0 +1,23 @@
+.message-box {
+  width: 55%;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: sandybrown;
+  display: inline-block;
+}
+
+.right {
+  background-color: brow;
+  float: right;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.left {
+  background-color: teal;
+  float: left;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+}

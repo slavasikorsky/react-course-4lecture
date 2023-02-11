@@ -28,6 +28,10 @@ function Sidebar() {
 			link: "/settings",
 			title: "Settings",
 		},
+		{
+			link: "/messages",
+			title: "Chat",
+		},
 	];
 
 	return (

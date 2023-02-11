@@ -24,6 +24,7 @@ import CheckLayout from "../layout/CheckLayout";
 
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
+import Messages from "../pages/Messages";
 
 const titles = {
 	"/": "Home page",
@@ -90,6 +91,7 @@ function Router() {
 					<Route path="/tasks" element={<Tasks />} />
 					<Route path="/posts" element={<Posts />} />
 					<Route path="/settings" element={<Settings />} />
+					<Route path="/messages" element={<Messages />} />
 				</Route>
 				<Route
 					path="/privacy"
