@@ -48,4 +48,14 @@
 		min-width: 230px;
 		border: none;
 	}
+
+	.submit {
+		cursor: pointer;
+		border: none;
+		background-color: teal;
+		color: #fff;
+		padding: 1rem;
+		border-radius: 10px;
+		font-size: 1rem;
+	}
 }
