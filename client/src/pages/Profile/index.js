@@ -8,6 +8,8 @@ import UserData from "../../components/UserData";
 
 import BgImage from "../../assets/images/icons/user-placeholder.jpg";
 import "./Profile.scss";
+import Tabs from "../../components/Tabs";
+import Settings from "../Settings/Settings";
 
 function Profile() {
 	const { user, logout } = useContext(AuthContext);
@@ -82,58 +84,87 @@ function Profile() {
 			});
 	};
 
+	const tabs = [
+		{
+			name: "Followers",
+			content: "Empty tab",
+		},
+		{
+			name: "Friends",
+			content: <Settings />,
+		},
+		{
+			name: "Profile",
+			content: (
+				<div className="profile-content">
+					<img
+						src={BgImage}
+						className="profile-bg-image"
+						alt="profile-bg"
+					/>
+					{userData && (
+						<UserData classname="profile--page" data={userData} />
+					)}
+				</div>
+			),
+		},
+		{
+			name: "Settings",
+			content: (
+				<div>
+					<Popup trigger={openPopup} setTtiger={setOpenPopup}>
+						<Form onSubmit={(e) => submitHandler(e)}>
+							<div className="wrap">
+								<Input
+									className="input purple"
+									type="text"
+									name="name"
+									placeholder="name"
+									onChange={(e) =>
+										setUpdateUserInfo({
+											...updateUserInfo,
+											fullName: e.target.value,
+										})
+									}
+									value={updateUserInfo.fullName}
+								/>
+							</div>
+							<div className="wrap">
+								<Input
+									className="input purple"
+									type="email"
+									name="email"
+									placeholder="Email"
+									onChange={(e) =>
+										setUpdateUserInfo({
+											...updateUserInfo,
+											email: e.target.value,
+										})
+									}
+									value={updateUserInfo.email}
+								/>
+							</div>
+							<button className="submit" type="submit">
+								Edit
+							</button>
+						</Form>
+					</Popup>
+					<button type="button" onClick={(e) => popupHandler(e)}>
+						Edit profile
+					</button>
+
+					<button type="button" onClick={(e) => removeUser(e)}>
+						Remove profile
+					</button>
+				</div>
+			),
+		},
+	];
+
 	return (
 		<DashboardContent>
 			<h1>Profile</h1>
-			<div className="profile-content">
-				<img
-					src={BgImage}
-					className="profile-bg-image"
-					alt="profile-bg"
-				/>
-				{userData && (
-					<UserData classname="profile--page" data={userData} />
-				)}
-
-				<button type="button" onClick={(e) => popupHandler(e)}>
-					Edit profile
-				</button>
-
-				<button type="button" onClick={(e) => removeUser(e)}>
-					Remove profile
-				</button>
-				<Popup trigger={openPopup} setTtiger={setOpenPopup}>
-					<Form onSubmit={(e) => submitHandler(e)}>
-						<Input
-							className="input purple"
-							type="text"
-							name="name"
-							placeholder="name"
-							onChange={(e) =>
-								setUpdateUserInfo({
-									...updateUserInfo,
-									fullName: e.target.value,
-								})
-							}
-							value={updateUserInfo.fullName}
-						/>
-						<Input
-							className="input purple"
-							type="email"
-							name="email"
-							placeholder="Email"
-							onChange={(e) =>
-								setUpdateUserInfo({
-									...updateUserInfo,
-									email: e.target.value,
-								})
-							}
-							value={updateUserInfo.email}
-						/>
-						<button type="submit">Edit</button>
-					</Form>
-				</Popup>
-			</div>
+			<Tabs tabs={tabs} />
 		</DashboardContent>
 	);
 }

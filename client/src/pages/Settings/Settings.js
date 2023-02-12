@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import DashboardContent from "../../components/DashboardContent";
+import Input from "../../components/UI/Input";
 
 function Settings() {
 	const [users, setUsers] = useState([]);
@@ -48,7 +48,7 @@ function Settings() {
 		},
 	];
 
-	useEffect(() => {
+	const fetchUsers = () => {
 		fetch(`http://localhost:5010/user/list`, {
 			method: "GET",
 			headers: {
@@ -60,12 +60,35 @@ function Settings() {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, [users]);
+	};
+
+	const userSearch = (e) => {
+		const query = e.target.value;
+		if (query.length > 2) {
+			const filteredUsers = users.filter((user) => {
+				const name = user.fullName.toLowerCase();
+				return name.includes(query.toLowerCase()) ? user : false;
+			});
+			setUsers(filteredUsers);
+		} else {
+			fetchUsers();
+		}
+	};
+
+	useEffect(() => {
+		fetchUsers();
+	}, []);
 	return (
-		<DashboardContent>
-			<h1>User list</h1>
+		<>
+			<h3>User list</h3>
+			<Input
+				type="text"
+				onChange={(e) => userSearch(e)}
+				placeholder="Search user"
+				style={{ margin: "0 0 20px", padding: "10px" }}
+			/>
 			<DataTable columns={columns} data={users} />
-		</DashboardContent>
+		</>
 	);
 }
 
