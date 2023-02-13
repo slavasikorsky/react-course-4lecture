@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import DashboardContent from "../../components/DashboardContent";
 import Input from "../../components/UI/Input";
 
 function Settings() {
@@ -82,7 +83,7 @@ function Settings() {
 		fetchUsers();
 	}, []);
 	return (
-		<>
+		<DashboardContent>
 			<h3>User list</h3>
 			<Input
 				type="text"
@@ -91,7 +92,7 @@ function Settings() {
 				style={{ margin: "0 0 20px", padding: "10px" }}
 			/>
 			<DataTable columns={columns} data={users} />
-		</>
+		</DashboardContent>
 	);
 }
 
