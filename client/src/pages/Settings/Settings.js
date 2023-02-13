@@ -63,11 +63,14 @@ function Settings() {
 	};
 
 	const userSearch = (e) => {
-		const query = e.target.value;
+		const query = e.target.value.toLowerCase();
 		if (query.length > 2) {
 			const filteredUsers = users.filter((user) => {
 				const name = user.fullName.toLowerCase();
-				return name.includes(query.toLowerCase()) ? user : false;
+				const { email } = user;
+				return name.includes(query) || email.includes(query)
+					? user
+					: false;
 			});
 			setUsers(filteredUsers);
 		} else {
