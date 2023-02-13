@@ -11,13 +11,10 @@ function Tasks() {
 	const [tasks, setTasks] = useState(false);
 	const [error, setError] = useState(false);
 
-	const loadTosks = () => {
-		fetch("http://localhost:5010/task/", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
+	const API_URL = "http://localhost:5010/task/";
+
+	const fetchTasks = () => {
+		fetch(API_URL)
 			.then((res) => res.json())
 			.then((result) => setTasks(result))
 			.catch((err) => {
@@ -26,50 +23,65 @@ function Tasks() {
 	};
 
 	useEffect(() => {
-		loadTosks();
+		fetchTasks();
 	}, []);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const taskContent = JSON.stringify({
 			task: e.target.name.value,
 		});
-		fetch(`http://localhost:5010/task/`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: taskContent,
-		})
-			.then((res) => res.json())
-			.then(() => loadTosks());
+		try {
+			const res = await fetch(API_URL, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: taskContent,
+			});
+			await res.json();
+			fetchTasks();
+		} catch (err) {
+			setError(err);
+		}
 	};
 
-	const removeTask = (e, id) => {
+	const removeTask = async (e, id) => {
 		e.preventDefault();
-		fetch(`http://localhost:5010/task/${id}`, {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((res) => res.json())
-			.then(() => loadTosks());
+		try {
+			const res = await fetch(`${API_URL}${id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			await res.json();
+			fetchTasks();
+		} catch (err) {
+			setError(err);
+		}
 	};
 
-	const updateTask = (id, param, value) => {
+	const updateTask = async (id, param, value) => {
 		const updateContent = JSON.stringify({
 			[param]: value,
 		});
-		fetch(`http://localhost:5010/task/${id}`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: updateContent,
-		})
-			.then((res) => res.json())
-			.then(() => loadTosks());
+		try {
+			const res = await fetch(`${API_URL}${id}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: updateContent,
+			});
+			await res.json();
+			const updatedTasks = tasks.map((task) => {
+				return task._id === id ? { ...task, [param]: value } : task;
+			});
+			setTasks(updatedTasks);
+		} catch (err) {
+			setError(err);
+		}
 	};
 
 	return (
