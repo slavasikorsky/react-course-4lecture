@@ -66,6 +66,12 @@ function Product() {
 		viewHandler();
 	}, []);
 
+	useEffect(() => {
+		document.title = post.title || "Post title";
+		document.querySelector('meta[name="description"]').content =
+			post.body || "Post description here";
+	}, [post]);
+
 	return (
 		<div className="post">
 			<Hero image={post.thumbnail} title={post.title} />
