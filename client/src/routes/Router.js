@@ -14,13 +14,10 @@ import {
 	Home,
 	NoMutch,
 	Product,
-	Posts,
-	Tasks,
 	Login,
 	Profile,
 	Registration,
 	Privacy,
-	Settings,
 	Portfolio,
 } from "../pages";
 
@@ -41,20 +38,12 @@ const pages = {
 		title: "Dashboard page",
 		description: "Vestibulum rhoncus ipsum non ultrices dapibus",
 	},
-	"/settings": {
-		title: "Settings page",
-		description: "Lorem ipsum dolor sit amet, consect",
-	},
 	"/login": {
 		title: "Login page",
 		description: "Lorem ipsum dolor sit amet, consect",
 	},
 	"/registration": {
 		title: "Register page",
-		description: "Lorem ipsum dolor sit amet, consect",
-	},
-	"/tasks": {
-		title: "Tasks page",
 		description: "Lorem ipsum dolor sit amet, consect",
 	},
 	"/contact": {
@@ -110,9 +99,6 @@ function Router() {
 				>
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/dashboard" element={<Dashboard />} />
-					<Route path="/tasks" element={<Tasks />} />
-					<Route path="/posts" element={<Posts />} />
-					<Route path="/settings" element={<Settings />} />
 					<Route path="/messages" element={<Messages />} />
 				</Route>
 				<Route

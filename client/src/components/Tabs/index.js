@@ -18,9 +18,11 @@ function Tabs({ tabs }) {
 				))}
 			<div className="tab-content">
 				{tabs &&
-					tabs.map((tab) =>
-						activeTab === tab.name ? tab.content : null
-					)}
+					tabs.map((tab) => (
+						<div key={tab.name}>
+							{activeTab === tab.name ? tab.content : null}
+						</div>
+					))}
 			</div>
 		</div>
 	);

@@ -3,10 +3,9 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-import DashboardContent from "../../components/DashboardContent";
-import Popup from "../../components/Popup";
-import Input from "../../components/UI/Input";
-import Form from "../../components/UI/Form";
+import Popup from "../Popup";
+import Input from "../UI/Input";
+import Form from "../UI/Form";
 import Post from "./Post";
 
 import "./Posts.scss";
@@ -133,8 +132,8 @@ function Posts() {
 	};
 
 	return (
-		<DashboardContent>
-			<h1>Posts</h1>
+		<div>
+			<h3>Posts</h3>
 			<div className="heading" style={{ textAlign: "right" }}>
 				<button
 					type="button"
@@ -230,7 +229,7 @@ function Posts() {
 					</button>
 				</Form>
 			</Popup>
-		</DashboardContent>
+		</div>
 	);
 }
 

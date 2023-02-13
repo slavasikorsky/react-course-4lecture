@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import DashboardContent from "../../components/DashboardContent";
-import Input from "../../components/UI/Input";
+import Input from "../UI/Input";
 
-function Settings() {
+function Friends() {
 	const [users, setUsers] = useState([]);
 
 	const deleteHandler = (e, id) => {
@@ -83,7 +82,7 @@ function Settings() {
 		fetchUsers();
 	}, []);
 	return (
-		<DashboardContent>
+		<div>
 			<h3>User list</h3>
 			<Input
 				type="text"
@@ -92,8 +91,8 @@ function Settings() {
 				style={{ margin: "0 0 20px", padding: "10px" }}
 			/>
 			<DataTable columns={columns} data={users} />
-		</DashboardContent>
+		</div>
 	);
 }
 
-export default Settings;
+export default Friends;

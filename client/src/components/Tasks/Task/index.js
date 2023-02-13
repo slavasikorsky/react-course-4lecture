@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Delete from "../../../components/UI/Delete";
-import Edit from "../../../components/UI/Edit";
-import Input from "../../../components/UI/Input";
-import Pin from "../../../components/UI/Pin";
-import Star from "../../../components/UI/Star";
+import Delete from "../../UI/Delete";
+import Edit from "../../UI/Edit";
+import Input from "../../UI/Input";
+import Pin from "../../UI/Pin";
+import Star from "../../UI/Star";
 
 import "./Task.scss";
 

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
-import Input from "../../components/UI/Input";
-import DashboardContent from "../../components/DashboardContent";
-import Form from "../../components/UI/Form";
+import Input from "../UI/Input";
+import Form from "../UI/Form";
 
 import "./Tasks.scss";
 import Task from "./Task";
@@ -85,8 +84,8 @@ function Tasks() {
 	};
 
 	return (
-		<DashboardContent>
-			<h1>Tasks</h1>
+		<div>
+			<h3>Tasks</h3>
 			{error && <p className="error">{error}</p>}
 			<ul className="tasks-list">
 				{tasks &&
@@ -106,7 +105,7 @@ function Tasks() {
 				<Input type="text" name="name" placeholder="Enter task name" />
 				<button type="submit">Add</button>
 			</Form>
-		</DashboardContent>
+		</div>
 	);
 }
 

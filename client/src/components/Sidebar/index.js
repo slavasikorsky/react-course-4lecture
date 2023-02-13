@@ -17,16 +17,8 @@ function Sidebar() {
 			title: "Dashboard",
 		},
 		{
-			link: "/posts",
-			title: "Posts",
-		},
-		{
-			link: "/tasks",
-			title: "Tasks",
-		},
-		{
-			link: "/settings",
-			title: "Settings",
+			link: "/profile",
+			title: "Profile",
 		},
 		{
 			link: "/messages",

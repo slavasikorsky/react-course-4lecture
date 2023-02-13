@@ -47,10 +47,6 @@ function Header() {
 			link: "/profile",
 			title: "Profile",
 		},
-		{
-			link: "/settings",
-			title: "Settings",
-		},
 	];
 
 	const [openMenu, setOpenMenu] = useState(false);
