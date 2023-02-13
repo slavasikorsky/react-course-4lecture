@@ -9,7 +9,7 @@ function Input({ type, name, className, value, placeholder, onChange, disabled, 
 			value={value}
 			placeholder={placeholder}
 			onChange={onChange}
-			style={style || false}
+			style={style}
 			disabled={disabled || false}
 		/>
 	);
