@@ -5,12 +5,14 @@ interface Props {
 	items: [{ title: string; content: string }];
 }
 
-const Accordion: React.FC<Props> = ({ items }) => {
-	const [activeIndex, setActiveIndex] = useState(null);
+type AccordionProps = (props: Props) => JSX.Element;
+
+const Accordion: AccordionProps = ({ items }) => {
+	const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
 	const handleClick = (index: number) => {
 		return activeIndex === index
-			? setActiveIndex(false)
+			? setActiveIndex(null)
 			: setActiveIndex(index);
 	};
 

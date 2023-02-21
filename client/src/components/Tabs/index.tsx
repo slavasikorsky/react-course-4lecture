@@ -1,8 +1,19 @@
 import { useState } from "react";
 import "./Tabs.scss";
 
-function Tabs({ tabs }) {
-	const [activeTab, setActiveTab] = useState(tabs[0].name);
+interface Props {
+	tabs: [
+		{
+			name: string;
+			content: string;
+		}
+	];
+}
+
+type TabsProps = (props: Props) => JSX.Element;
+
+const Tabs: TabsProps = ({ tabs }) => {
+	const [activeTab, setActiveTab] = useState<string | null>(tabs[0].name);
 	return (
 		<div className="tabs">
 			{tabs &&
@@ -26,6 +37,6 @@ function Tabs({ tabs }) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Tabs;

@@ -6,7 +6,9 @@ interface Props {
 	image: string;
 }
 
-const Hero: React.FC<Props> = ({ title, image }) => {
+type HeroProps = (props: Props) => JSX.Element;
+
+const Hero: HeroProps = ({ title, image }) => {
 	const classes: string = title ? "hero hero--gradient" : "hero";
 	return (
 		<div className={classes}>
