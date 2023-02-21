@@ -10,15 +10,17 @@
 		"plugin:jsx-a11y/recommended",
 		"plugin:import/recommended",
 		"airbnb",
+		"airbnb-typescript",
 		"plugin:react/jsx-runtime",
 		"plugin:prettier/recommended"
 	],
 	"overrides": [],
 	"parserOptions": {
+		"project": "./tsconfig.json",
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["react"],
+	"plugins": ["react", "@typescript-eslint"],
 	"ignorePatterns": ["**/UI/**/*.js"],
 	"rules": {
 		"react/no-unstable-nested-components": "off",
@@ -28,6 +30,15 @@
 		"react/jsx-props-no-spreading": "off",
 		"react/prop-types": "off",
 		"import/prefer-default-export": "off",
-		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+		"react/function-component-definition": [
+			2,
+			{
+				"namedComponents": ["arrow-function", "function-declaration"]
+			}
+		],
+		"react/jsx-filename-extension": [
+			2,
+			{ "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+		]
 	}
 }
