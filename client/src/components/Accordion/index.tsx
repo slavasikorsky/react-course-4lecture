@@ -1,10 +1,14 @@
 import { useState } from "react";
 import "./Accordion.scss";
 
-function Accordion({ items }) {
+interface Props {
+	items: [{ title: string; content: string }];
+}
+
+const Accordion: React.FC<Props> = ({ items }) => {
 	const [activeIndex, setActiveIndex] = useState(null);
 
-	const handleClick = (index) => {
+	const handleClick = (index: number) => {
 		return activeIndex === index
 			? setActiveIndex(false)
 			: setActiveIndex(index);
@@ -30,6 +34,6 @@ function Accordion({ items }) {
 				))}
 		</div>
 	);
-}
+};
 
 export default Accordion;

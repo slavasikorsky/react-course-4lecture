@@ -1,9 +1,13 @@
 import "./Hero.scss";
 import placeholder from "../../assets/images/placeholder.png";
 
-function Hero(props) {
-	const { title, image } = props;
-	const classes = title ? "hero hero--gradient" : "hero";
+interface Props {
+	title: string;
+	image: string;
+}
+
+const Hero: React.FC<Props> = ({ title, image }) => {
+	const classes: string = title ? "hero hero--gradient" : "hero";
 	return (
 		<div className={classes}>
 			<img
@@ -14,6 +18,6 @@ function Hero(props) {
 			{title && <h1 className="hero__title">{title}</h1>}
 		</div>
 	);
-}
+};
 
 export default Hero;
