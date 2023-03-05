@@ -2,16 +2,37 @@ import { useReducer, createContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-const LOGIN = "LOGIN";
-const LOGOUT = "LOGOUT";
-const UPDATE = "UPDATE";
-const JWT_TOKEN = "jwtToken";
-const INITIAL_STATE = {
+interface DecodeTokenType {
+	fullName: string;
+	email: string;
+	_id: number;
+	iat: number;
+	exp: number;
+}
+
+type InitialType = {
+	user: DecodeTokenType;
+};
+
+interface AuthProviderProps {
+	children: {
+		$$typeof: JSX.Element;
+		key: number | null;
+	};
+}
+
+const LOGIN: string = "LOGIN";
+const LOGOUT: string = "LOGOUT";
+const UPDATE: string = "UPDATE";
+const JWT_TOKEN: string = "jwtToken";
+const INITIAL_STATE: InitialType = {
 	user: null,
 };
 
 if (localStorage.getItem(JWT_TOKEN)) {
-	const decodeToken = jwtDecode(localStorage.getItem(JWT_TOKEN));
+	const decodeToken: DecodeTokenType = jwtDecode(
+		localStorage.getItem(JWT_TOKEN)
+	);
 	if (decodeToken.exp * 1000 < Date.now()) {
 		localStorage.removeItem(JWT_TOKEN);
 	} else {
@@ -24,7 +45,10 @@ const AuthContext = createContext({
 	logout: () => {},
 	update: () => {},
 });
-function authReducer(state, action) {
+function authReducer(
+	state: { user: string },
+	action: { type: string; payload: { result: string } }
+) {
 	switch (action.type) {
 		case LOGIN:
 			return {
@@ -45,11 +69,14 @@ function authReducer(state, action) {
 			return state;
 	}
 }
-function AuthProvider(props) {
-	const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);
+function AuthProvider(props: AuthProviderProps) {
+	const [state, dispatch]: [
+		state: { user: number },
+		dispatch: ReducerWithoutAction
+	] = useReducer(authReducer, INITIAL_STATE);
 	const navigate = useNavigate();
 	const login = useMemo(
-		() => (userData) => {
+		() => (userData: { token: string }) => {
 			localStorage.setItem(JWT_TOKEN, userData.token);
 			dispatch({
 				type: LOGIN,
