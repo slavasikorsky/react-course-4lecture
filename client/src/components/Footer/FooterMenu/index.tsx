@@ -3,7 +3,7 @@ import NavList from "../../NavList";
 import "./FooterMenu.scss";
 
 function FooterMenu() {
-	const topCategory = [
+	const topCategory: { link: string; title: string }[] = [
 		{
 			link: "/",
 			title: "Home",

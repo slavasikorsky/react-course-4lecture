@@ -1,9 +1,27 @@
+import { ObjectId } from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 import Masonry from "react-masonry-css";
 import CardItem from "./CardItem";
-
 import "./CardList.scss";
 
-function CardList(props) {
+interface Post {
+	_id: ObjectId;
+	title: string;
+	clName?: string;
+	thumbnail?: string;
+	body: string;
+	categories: string;
+	tag: string;
+	likes: number;
+}
+
+interface Props {
+	data: Post[];
+}
+
+type CardListProps = (props: Props) => JSX.Element;
+
+const CardList: CardListProps = (props: Props) => {
 	const { data } = props;
 	const first = data[0];
 
@@ -20,12 +38,13 @@ function CardList(props) {
 			{first ? (
 				<CardItem
 					id={first._id}
+					clName={first.clName}
 					title={first.title}
 					imgSrc={first.thumbnail}
-					text={first.body}
+					body={first.body}
 					categories={first.categories}
 					tag={first.tag}
-					rating={first.likes}
+					likes={first.likes}
 				/>
 			) : (
 				false
@@ -42,14 +61,14 @@ function CardList(props) {
 							index > 0 ? (
 								<CardItem
 									clName="grid__item grid__item--masonry"
-									key={item._id}
+									key={uuidv4()}
 									id={item._id}
 									title={item.title}
 									imgSrc={item.thumbnail}
-									text={item.body}
+									body={item.body}
 									categories={item.categories}
 									tag={item.tag}
-									rating={item.likes}
+									likes={item.likes}
 								/>
 							) : (
 								false
@@ -59,6 +78,6 @@ function CardList(props) {
 			</Masonry>
 		</div>
 	);
-}
+};
 
 export default CardList;
