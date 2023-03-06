@@ -2,7 +2,7 @@ import { useReducer, createContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-interface DecodeTokenType {
+interface User {
 	fullName: string;
 	email: string;
 	_id: number;
@@ -10,45 +10,55 @@ interface DecodeTokenType {
 	exp: number;
 }
 
-type InitialType = {
-	user: DecodeTokenType;
-};
-
-interface AuthProviderProps {
-	children: {
-		$$typeof: JSX.Element;
-		key: number | null;
+interface AuthState {
+	user: User | null;
+}
+interface LoginAction {
+	type: typeof LOGIN;
+	payload: {
+		result: User;
+		token: string;
 	};
 }
+interface LogoutAction {
+	type: typeof LOGOUT;
+}
+interface UpdateAction {
+	type: typeof UPDATE;
+	payload: User;
+}
+type AuthAction = LoginAction | LogoutAction | UpdateAction;
 
-const LOGIN: string = "LOGIN";
-const LOGOUT: string = "LOGOUT";
-const UPDATE: string = "UPDATE";
-const JWT_TOKEN: string = "jwtToken";
-const INITIAL_STATE: InitialType = {
+const LOGIN = "LOGIN";
+const LOGOUT = "LOGOUT";
+const UPDATE = "UPDATE";
+const JWT_TOKEN = "jwtToken";
+const INITIAL_STATE: AuthState = {
 	user: null,
 };
 
 if (localStorage.getItem(JWT_TOKEN)) {
-	const decodeToken: DecodeTokenType = jwtDecode(
-		localStorage.getItem(JWT_TOKEN)
+	const decodeToken = jwtDecode<{ exp: number }>(
+		localStorage.getItem(JWT_TOKEN)!
 	);
 	if (decodeToken.exp * 1000 < Date.now()) {
 		localStorage.removeItem(JWT_TOKEN);
 	} else {
-		INITIAL_STATE.user = decodeToken;
+		INITIAL_STATE.user = jwtDecode<User>(localStorage.getItem(JWT_TOKEN)!);
 	}
 }
-const AuthContext = createContext({
+const AuthContext = createContext<{
+	user: User | null;
+	login: (userData: { result: User; token: string }) => void;
+	logout: () => void;
+	update: (userData: { data: User; token: string }) => void;
+}>({
 	user: null,
 	login: () => {},
 	logout: () => {},
 	update: () => {},
 });
-function authReducer(
-	state: { user: string },
-	action: { type: string; payload: { result: string } }
-) {
+function authReducer(state: AuthState, action: AuthAction): AuthState {
 	switch (action.type) {
 		case LOGIN:
 			return {
@@ -60,7 +70,7 @@ function authReducer(
 				...state,
 				user: null,
 			};
-		case "UPDATE":
+		case UPDATE:
 			return {
 				...state,
 				user: action.payload,
@@ -69,14 +79,11 @@ function authReducer(
 			return state;
 	}
 }
-function AuthProvider(props: AuthProviderProps) {
-	const [state, dispatch]: [
-		state: { user: number },
-		dispatch: ReducerWithoutAction
-	] = useReducer(authReducer, INITIAL_STATE);
+function AuthProvider(props: { children: React.ReactNode }) {
+	const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);
 	const navigate = useNavigate();
 	const login = useMemo(
-		() => (userData: { token: string }) => {
+		() => (userData: { result: User; token: string }) => {
 			localStorage.setItem(JWT_TOKEN, userData.token);
 			dispatch({
 				type: LOGIN,
@@ -84,7 +91,7 @@ function AuthProvider(props: AuthProviderProps) {
 			});
 			navigate("/dashboard");
 		},
-		[]
+		[navigate]
 	);
 	const logout = useMemo(
 		() => () => {
@@ -92,10 +99,10 @@ function AuthProvider(props: AuthProviderProps) {
 			dispatch({ type: LOGOUT });
 			navigate("/");
 		},
-		[]
+		[navigate]
 	);
 	const update = useMemo(
-		() => (userData) => {
+		() => (userData: { data: User; token: string }) => {
 			localStorage.setItem(JWT_TOKEN, userData.token);
 			dispatch({
 				type: UPDATE,
@@ -104,7 +111,6 @@ function AuthProvider(props: AuthProviderProps) {
 		},
 		[]
 	);
-
 	const authValue = useMemo(
 		() => ({
 			user: state.user,
