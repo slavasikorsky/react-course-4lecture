@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import Container from "../Container";
@@ -14,6 +14,7 @@ import { AuthContext } from "../../context/auth";
 function Header() {
 	const { user, logout } = useContext(AuthContext);
 	const { fullName } = user || false;
+	const btnRef = useRef();
 
 	const navLinks = [
 		{
@@ -51,6 +52,16 @@ function Header() {
 
 	const [openMenu, setOpenMenu] = useState(false);
 
+	useEffect(() => {
+		const closeDrop = (e) => {
+			if (e.composedPath()[1] !== btnRef.current) {
+				setOpenMenu(false);
+			}
+		};
+		document.body.addEventListener("click", closeDrop);
+		return () => document.body.addEventListener("click", closeDrop);
+	}, [openMenu]);
+
 	const logoutHandler = (e) => {
 		e.preventDefault();
 		logout();
@@ -72,6 +83,7 @@ function Header() {
 								<a
 									href="#/"
 									className="user"
+									ref={btnRef}
 									onClick={() => setOpenMenu(!openMenu)}
 								>
 									<UserIcon />
