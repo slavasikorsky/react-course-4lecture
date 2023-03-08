@@ -1,12 +1,21 @@
 import Avatar from "../../assets/images/icons/avatar.png";
 import "./UserData.scss";
 
-function UserData({ classname, data }) {
+interface UserDataProps {
+	className: string;
+	data: {
+		username?: string;
+		fullName?: string;
+		email?: string;
+	};
+}
+
+const UserData = ({ className = null, data }: UserDataProps) => {
 	const userName = data?.username || data?.fullName;
-	const { email } = data || false;
+	const { email } = data || {};
 
 	return (
-		<div className={`user-data ${classname || ""}`}>
+		<div className={`user-data ${className}`}>
 			<img src={Avatar} alt="avatar" className="user-avatar" />
 			<div className="user-name">
 				<span className="user-fullname">{userName}</span>
@@ -14,6 +23,6 @@ function UserData({ classname, data }) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default UserData;

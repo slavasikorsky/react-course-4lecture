@@ -5,9 +5,14 @@ import { AuthContext } from "../../context/auth";
 
 import "./Sidebar.scss";
 
+interface UserDataTypes {
+	fullName: string;
+	email: string;
+}
+
 function Sidebar() {
 	const { user } = useContext(AuthContext);
-	const userData = {
+	const userData: UserDataTypes = {
 		fullName: user.fullName,
 		email: user.email,
 	};
