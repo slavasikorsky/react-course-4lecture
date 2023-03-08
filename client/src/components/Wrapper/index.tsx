@@ -2,6 +2,7 @@ import "./Wrapper.scss";
 
 type WrapperProps = {
 	children: JSX.Element | JSX.Element[];
+	style?: React.CSSProperties;
 	rest?: JSX.Element;
 };
 

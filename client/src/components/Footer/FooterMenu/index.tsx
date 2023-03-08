@@ -22,7 +22,7 @@ function FooterMenu() {
 		},
 	];
 
-	const tags = [
+	const tags: { link: string; title: string }[] = [
 		{
 			link: "/404",
 			title: "404",
@@ -41,7 +41,7 @@ function FooterMenu() {
 		},
 	];
 
-	const topRated = [
+	const topRated: { link: string; title: string }[] = [
 		{
 			link: "/about",
 			title: "About",

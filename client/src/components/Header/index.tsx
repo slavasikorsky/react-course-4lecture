@@ -1,6 +1,5 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-
 import Container from "../Container";
 import Wrapper from "../Wrapper";
 import NavList from "../NavList";
@@ -13,7 +12,7 @@ import { AuthContext } from "../../context/auth";
 
 function Header() {
 	const { user, logout } = useContext(AuthContext);
-	const { fullName } = user || false;
+	const fullName = user && user.fullName;
 	const btnRef = useRef();
 
 	const navLinks = [
@@ -53,8 +52,8 @@ function Header() {
 	const [openMenu, setOpenMenu] = useState(false);
 
 	useEffect(() => {
-		const closeDrop = (e) => {
-			if (e.composedPath()[1] !== btnRef.current) {
+		const closeDrop = (e: MouseEvent): void => {
+			if (e.target !== btnRef.current) {
 				setOpenMenu(false);
 			}
 		};
@@ -62,7 +61,7 @@ function Header() {
 		return () => document.body.addEventListener("click", closeDrop);
 	}, [openMenu]);
 
-	const logoutHandler = (e) => {
+	const logoutHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
 		e.preventDefault();
 		logout();
 	};
@@ -99,9 +98,17 @@ function Header() {
 											direction="vertical"
 										/>
 									)}
-									<NavLink onClick={(e) => logoutHandler(e)}>
+									<button
+										type="button"
+										onClick={(
+											e: React.MouseEvent<
+												HTMLButtonElement,
+												MouseEvent
+											>
+										) => logoutHandler(e)}
+									>
 										Logout
-									</NavLink>
+									</button>
 								</div>
 							</div>
 						) : (
