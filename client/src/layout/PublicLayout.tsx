@@ -6,7 +6,11 @@ import Header from "../components/Header";
 
 import "../assets/css/_app.scss";
 
-function PublicLayout({ children }) {
+type LayoutProps = {
+	children: JSX.Element;
+};
+
+function PublicLayout({ children }: LayoutProps) {
 	return (
 		<>
 			<Header />

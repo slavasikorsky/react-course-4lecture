@@ -6,7 +6,11 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Wrapper from "../components/Wrapper";
 
-function PrivateLayout({ children }) {
+type LayoutProps = {
+	children: JSX.Element;
+};
+
+function PrivateLayout({ children }: LayoutProps) {
 	return (
 		<>
 			<Header />
