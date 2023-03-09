@@ -6,29 +6,47 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
 		"plugin:react-hooks/recommended",
 		"plugin:jsx-a11y/recommended",
 		"plugin:import/recommended",
 		"airbnb",
 		"airbnb-typescript",
-		"plugin:react/jsx-runtime",
-		"plugin:prettier/recommended"
+		"plugin:prettier/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:import/typescript",
+		"plugin:react/jsx-runtime"
 	],
 	"overrides": [],
+	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"project": "./tsconfig.json",
 		"ecmaVersion": "latest",
+		"project": "tsconfig.json",
 		"sourceType": "module"
 	},
-	"plugins": ["react", "@typescript-eslint"],
 	"ignorePatterns": ["**/UI/**/*.js"],
+	"plugins": ["react", "@typescript-eslint", "prettier", "import"],
+	"settings": {
+		"import/extensions": [".js", ".jsx", ".ts", ".tsx"],
+		"import/parsers": {
+			"@typescript-eslint/parser": [".ts", ".tsx"]
+		},
+		"import/resolver": {
+			"typescript": {
+				"alwaysTryTypes": true,
+				"project": "tsconfig.json"
+			}
+		}
+	},
 	"rules": {
 		"react/no-unstable-nested-components": "off",
 		"no-underscore-dangle": "off",
 		"object-shorthand": 0,
 		"spaceInEmptyObject": [0, "newer"],
 		"react/jsx-props-no-spreading": "off",
-		"react/prop-types": "off",
+		"react/prop-types": [0],
+		"react/require-default-props": [0],
 		"import/prefer-default-export": "off",
 		"react/function-component-definition": [
 			2,
@@ -37,8 +55,10 @@
 			}
 		],
 		"react/jsx-filename-extension": [
-			2,
-			{ "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+			1,
+			{
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
 		]
 	}
 }
