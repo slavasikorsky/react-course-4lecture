@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import SidebarLink from "./SidebarLink";
+import NavLink from "../NavList/NavItem";
 import UserData from "../UserData";
 import { AuthContext } from "../../context/auth";
 
@@ -37,13 +37,9 @@ function Sidebar() {
 			<ul className="sidebar-links">
 				{sidebarLinks &&
 					sidebarLinks.map((item) => (
-						<SidebarLink
-							key={item.link}
-							link={item.link}
-							active={item.active}
-						>
+						<NavLink key={item.title} link={item.link}>
 							{item.title}
-						</SidebarLink>
+						</NavLink>
 					))}
 			</ul>
 		</div>

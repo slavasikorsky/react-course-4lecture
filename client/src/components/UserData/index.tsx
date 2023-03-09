@@ -2,7 +2,7 @@ import Avatar from "../../assets/images/icons/avatar.png";
 import "./UserData.scss";
 
 interface UserDataProps {
-	className: string;
+	className?: string;
 	data: {
 		username?: string;
 		fullName?: string;
