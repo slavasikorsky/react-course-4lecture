@@ -1,22 +1,12 @@
-import { ObjectId } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 import Masonry from "react-masonry-css";
 import CardItem from "./CardItem";
 import "./CardList.scss";
 
-interface Post {
-	_id: ObjectId;
-	title: string;
-	clName?: string;
-	thumbnail?: string;
-	body: string;
-	categories: string;
-	tag: string;
-	likes: number;
-}
+import { PostTypes } from "../../types/PostTypes";
 
 interface Props {
-	data: Post[];
+	data: PostTypes[];
 }
 
 type CardListProps = (props: Props) => JSX.Element;
