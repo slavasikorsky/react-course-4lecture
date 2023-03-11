@@ -18,10 +18,10 @@ function Contact() {
 		phone: "",
 		message: "",
 	});
-	const [validName, setValidName] = useState(false);
-	const [validEmail, setValidEmail] = useState(false);
-	const [validPhone, setValidPhone] = useState(false);
-	const [validMessage, setValidMessage] = useState(false);
+	const [validName, setValidName] = useState<boolean>(false);
+	const [validEmail, setValidEmail] = useState<boolean>(false);
+	const [validPhone, setValidPhone] = useState<boolean>(false);
+	const [validMessage, setValidMessage] = useState<boolean>(false);
 
 	const formErrors = {
 		name: "Was contains at list 2 letters",
@@ -35,7 +35,7 @@ function Contact() {
 			notify.success("Great success, very nice!", "notify-success");
 	}, [validName, validEmail, validPhone, validMessage]);
 
-	const nameValidation = (name) => {
+	const nameValidation = (name: string): void => {
 		if (name.length < 2) {
 			notify.error(formErrors.name, "notify-name");
 			setValidName(false);
@@ -44,7 +44,7 @@ function Contact() {
 		}
 	};
 
-	const emailValidation = (email) => {
+	const emailValidation = (email: string): void => {
 		const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
 		if (emailValid) {
 			setValidEmail(true);
@@ -54,7 +54,7 @@ function Contact() {
 		}
 	};
 
-	const messageValidation = (message) => {
+	const messageValidation = (message: string): void => {
 		if (message.length < 10) {
 			notify.error(formErrors.message, "notify-message");
 			setValidMessage(false);
@@ -63,7 +63,7 @@ function Contact() {
 		}
 	};
 
-	const phoneValidation = (phone) => {
+	const phoneValidation = (phone: string) => {
 		if (phone.length < 7) {
 			notify.error(formErrors.phone, "notify-phone");
 			setValidPhone(false);
@@ -72,7 +72,7 @@ function Contact() {
 		}
 	};
 
-	const handlerSubmit = (e) => {
+	const handlerSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		Object.keys(contact).map((name) => {
 			switch (name) {
@@ -95,7 +95,9 @@ function Contact() {
 		});
 	};
 
-	const handleChange = (e) => {
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	): void => {
 		const { name, value } = e.target;
 		setContact({ ...contact, [name]: value });
 	};
@@ -149,7 +151,9 @@ function Contact() {
 							placeholder="Enter message"
 							onChange={handleChange}
 						/>
-						<button type="submit">Send</button>
+						<button className="submit" type="submit">
+							Send
+						</button>
 					</Form>
 				</div>
 			</Container>

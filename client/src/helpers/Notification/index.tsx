@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const notify = {
-	error(title, id) {
+	error(title: string, id: string): void {
 		toast.error(title, {
 			position: "bottom-right",
 			autoClose: 1000,
@@ -16,7 +16,7 @@ const notify = {
 		});
 	},
 
-	success(title, id) {
+	success(title: string, id: string): void {
 		toast.success(title, {
 			position: "bottom-right",
 			autoClose: 1000,

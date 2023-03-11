@@ -3,7 +3,11 @@ import { AuthContext } from "../context/auth";
 import PrivateLayout from "./PrivateLayout";
 import PublicLayout from "./PublicLayout";
 
-function CheckLayout({ children }) {
+type CheckLayoutProps = {
+	children: JSX.Element;
+};
+
+function CheckLayout({ children }: CheckLayoutProps) {
 	const { user } = useContext(AuthContext);
 	return user ? (
 		<PrivateLayout>{children}</PrivateLayout>

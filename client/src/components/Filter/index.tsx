@@ -1,7 +1,7 @@
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 import "./Filter.scss";
 
-const customStyles = {
+const customStyles: StylesConfig = {
 	control: () => ({
 		backgroundColor: "#303033",
 		borderRadius: "10px",
@@ -35,8 +35,11 @@ const customStyles = {
 	}),
 };
 
-function Filter(props) {
-	const { categoryHandler } = props;
+type FilterProps = {
+	changeHandler: (e: { value: string; label: string }) => void;
+};
+
+function Filter({ changeHandler }: FilterProps) {
 	const categoryOptions = [
 		{ value: "smartphones", label: "smartphones" },
 		{ value: "automotive", label: "automotive" },
@@ -47,7 +50,7 @@ function Filter(props) {
 		<div className="filter-wrapper">
 			<Select
 				styles={customStyles}
-				onChange={categoryHandler}
+				onChange={changeHandler}
 				options={categoryOptions}
 			/>
 		</div>

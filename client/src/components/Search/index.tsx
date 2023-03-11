@@ -1,7 +1,10 @@
 import "./Search.scss";
 
-function Search(props) {
-	const { postsHandler } = props;
+type SearchProps = {
+	postsHandler: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+};
+
+function Search({ postsHandler }: SearchProps) {
 	return (
 		<div className="search-wrapper">
 			<input

@@ -8,16 +8,16 @@ import Search from "../../components/Search";
 import Hero from "../../components/Hero";
 import Wrapper from "../../components/Wrapper";
 import Button from "../../components/Button";
-
 import heroImage from "../../assets/images/hero.png";
+import { PostTypes } from "../../types/PostTypes";
 
 function Home() {
 	const API_URL = "http://localhost:5010/posts/";
 	const postPerPage = 10;
 
-	const [posts, setPosts] = useState([]);
-	const [loadMore, setLoadMore] = useState(true);
-	const [skip, setSkip] = useState(0);
+	const [posts, setPosts] = useState<PostTypes[]>([]);
+	const [loadMore, setLoadMore] = useState<boolean>(true);
+	const [skip, setSkip] = useState<number>(0);
 
 	// skip = posts starting by [skip] id
 	const loadPosts = () => {
@@ -41,10 +41,9 @@ function Home() {
 		loadPosts();
 	}, []);
 
-	const categoryLoad = (e) => {
-		const category = e.value;
+	const categoryLoad = (e: { value: string }) => {
 		axios
-			.get(`${API_URL}/category/${category}`)
+			.get(`${API_URL}/category/${e.value}`)
 			.then((res) => {
 				setPosts([...res.data.products]);
 				setLoadMore(false);
@@ -54,7 +53,7 @@ function Home() {
 			});
 	};
 
-	const postSearch = (e) => {
+	const postSearch = (e: any) => {
 		const query = e.target.value;
 		axios
 			.get(`${API_URL}/search?q=${query}`)
@@ -77,23 +76,25 @@ function Home() {
 			<div className="content">
 				<Container>
 					<Wrapper>
-						<Filter categoryHandler={categoryLoad} />
+						<Filter changeHandler={categoryLoad} />
 						<Search postsHandler={postSearch} />
 					</Wrapper>
 					<Wrapper>
 						<Suspense fallback={<h1>Loading posts...</h1>}>
 							{posts && <CardList data={posts} />}
 						</Suspense>
-						{loadMore ? (
-							<Button
-								onClick={loadPosts}
-								className="button--large"
-							>
-								Load More
-							</Button>
-						) : (
-							false
-						)}
+						<div>
+							{loadMore ? (
+								<Button
+									onClick={loadPosts}
+									className="button--large"
+								>
+									Load More
+								</Button>
+							) : (
+								false
+							)}
+						</div>
 					</Wrapper>
 				</Container>
 			</div>

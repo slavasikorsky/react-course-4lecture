@@ -2,7 +2,7 @@ import "./Hero.scss";
 import placeholder from "../../assets/images/placeholder.png";
 
 interface Props {
-	title: string;
+	title?: string;
 	image: string;
 }
 
