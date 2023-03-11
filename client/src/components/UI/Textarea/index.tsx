@@ -3,7 +3,7 @@ import "./Textarea.scss";
 interface Props {
 	name: string;
 	value: string;
-	className: string;
+	className?: string;
 	placeholder?: string;
 	onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
