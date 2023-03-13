@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-function useFetch(url) {
-	const [data, setData] = useState(false);
-	const [error, setError] = useState(false);
+function useFetch(url: string) {
+	const [data, setData] = useState<{ message?: string } | boolean>(false);
+	const [error, setError] = useState<string>(null);
 
-	const handler = async (body = false) => {
+	const handler = async (body: FormData | null = null) => {
 		if (body) {
 			const response = await fetch(url, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: body || false,
+				body: body || null,
 			}).then(async (res) => {
 				try {
 					const newData = await res.json();

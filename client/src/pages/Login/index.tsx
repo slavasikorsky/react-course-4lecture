@@ -68,7 +68,7 @@ function Login() {
 							onClick={(e) => togglePassword(e)}
 							type="button"
 						>
-							<Eye />
+							<Eye fill="white" />
 						</button>
 					</div>
 					<button className="button" type="submit">
