@@ -15,12 +15,12 @@ function Home() {
 	const API_URL = "http://localhost:5010/posts/";
 	const postPerPage = 10;
 
-	const [posts, setPosts] = useState<PostTypes[]>([]);
-	const [loadMore, setLoadMore] = useState<boolean>(true);
+	const [posts, setPosts] = useState<PostTypes[] | null>([]);
+	const [loadMore, setLoadMore] = useState<boolean>(false);
 	const [skip, setSkip] = useState<number>(0);
 
 	// skip = posts starting by [skip] id
-	const loadPosts = () => {
+	const loadPosts = (): void => {
 		axios
 			.get(API_URL, {
 				params: {
@@ -53,7 +53,7 @@ function Home() {
 			});
 	};
 
-	const postSearch = (e: any) => {
+	const postSearch = (e: any): void => {
 		const query = e.target.value;
 		axios
 			.get(`${API_URL}/search?q=${query}`)
